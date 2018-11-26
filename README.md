@@ -1,5 +1,5 @@
-##NASLOV
-Selitve v in iz Slovenije
+##NASLOV \n
+Analiza selitev Slovencev
 
 ##OPIS PROJEKTA
 V tem projektru bomo obravnavali v katere države se selijo Slovenci, pri kakšni starosti se preseljujejo, ter zakaj se preseljujejo. Obravnavali pa bomo tudi kdo in iz kje se priseljuje v Slovenijo.
