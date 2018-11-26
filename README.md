@@ -1,4 +1,4 @@
-##NASLOV \n
+##NASLOV
 Analiza selitev Slovencev
 
 ##OPIS PROJEKTA
