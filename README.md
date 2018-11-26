@@ -1,3 +1,26 @@
+##NASLOV
+Selitve v in iz Slovenije
+
+##OPIS PROJEKTA
+V tem projektru bomo obravnavali v katere države se selijo Slovenci, pri kakšni starosti se preseljujejo, ter zakaj se preseljujejo. Obravnavali pa bomo tudi kdo in iz kje se ljudje priseljujejo v Slovenijo.
+
+#VIRI
+Za podatke bomo uporabljali Si-Stat: https://pxweb.stat.si/pxweb/Database/Dem_soc/Dem_soc.asp
+Podatke za meddržavne selitve bomo dobili iz: https://pxweb.stat.si/pxweb/Database/Dem_soc/05_prebivalstvo/40_selitve/05_05N10_meddrzavne/05_05N10_meddrzavne.asp
+Socioekonomske značilnosti pa bomo dobivali na teh dveh spletnih straneh: 
+https://pxweb.stat.si/pxweb/Database/Dem_soc/05_prebivalstvo/40_selitve/20_05N32_soc_ek_znac_odsel/20_05N32_soc_ek_znac_odsel.asp (za odseljevanje)
+https://pxweb.stat.si/pxweb/Database/Dem_soc/05_prebivalstvo/40_selitve/15_05N31_soc_ek_znac_prisel/15_05N31_soc_ek_znac_prisel.asp (za priseljevanje)
+
+
+##PLAN DELA
+
+
+
+
+
+
+
+
 # Analiza podatkov s programom R, 2018/19
 
 Repozitorij z gradivi pri predmetu APPR v študijskem letu 2018/19
