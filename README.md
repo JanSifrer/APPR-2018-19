@@ -12,8 +12,6 @@ https://pxweb.stat.si/pxweb/Database/Dem_soc/05_prebivalstvo/40_selitve/20_05N32
 https://pxweb.stat.si/pxweb/Database/Dem_soc/05_prebivalstvo/40_selitve/15_05N31_soc_ek_znac_prisel/15_05N31_soc_ek_znac_prisel.asp (za priseljevanje)
 
 
-##PLAN DELA
-
 
 
 
