@@ -24,6 +24,7 @@ SI-STAT:
 
 Podatki o meddržavnih selitvah:
 * https://pxweb.stat.si/pxweb/Database/Dem_soc/05_prebivalstvo/40_selitve/05_05N10_meddrzavne/05_05N10_meddrzavne.asp
+
 Socioekonomske značilnosti:
 
 * https://pxweb.stat.si/pxweb/Database/Dem_soc/05_prebivalstvo/40_selitve/20_05N32_soc_ek_znac_odsel/20_05N32_soc_ek_znac_odsel.asp (za odseljevanje)
