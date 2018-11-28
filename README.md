@@ -1,6 +1,6 @@
 ## Analiza podatkov s programom R, 2018/19
 
-### Jan Šifrer
+**Jan Šifrer**
 
 Repozitorij z gradivi pri predmetu APPR v študijskem letu 2018/19
 
@@ -9,7 +9,7 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2018/19
 
 ## Analiza preseljevanja Slovencev
 
-Za projektno nalogo sem si izbral analizo preseljevanja Slovencev. Podatke bom dobil na statističnemu uradu Republike Slovenije (SI-STAT), pod tematiko demografsko in socialno področje – selitve. Moj cilj je, da prikažem kolikšen delež Slovencev se seli, pri kakšni starosti se selijo, zakaj se selijo in v katere države se največ Slovencev izseli. Zanimalo pa me bo tudi obratno, torej kaj je razlog da se ljudje priseljujejo v Slovenijo, ter iz kje prhajajo.
+Za projektno nalogo sem si izbral analizo preseljevanja Slovencev. Podatke bom dobil na statističnemu uradu Republike Slovenije (SI-STAT), pod tematiko demografsko in socialno področje – selitve. Moj cilj je, da prikažem kolikšen delež Slovencev se seli, pri kakšni starosti se selijo, zakaj se selijo in v katere države se največ Slovencev preseli. Zanimalo pa me bo tudi obratno, torej kaj je razlog da se ljudje priseljujejo v Slovenijo, ter iz kje prhajajo.
 
 ## Tabele
 * tabela 1: vrsta selitve, starostne skupine, spol, letno, državljanstvo
@@ -20,11 +20,17 @@ Za projektno nalogo sem si izbral analizo preseljevanja Slovencev. Podatke bom d
 
 ## Viri
 SI-STAT:
+
 * https://pxweb.stat.si/pxweb/Database/Dem_soc/Dem_soc.asp
+
 Podatki o meddržavnih selitvah:
+
 * https://pxweb.stat.si/pxweb/Database/Dem_soc/05_prebivalstvo/40_selitve/05_05N10_meddrzavne/05_05N10_meddrzavne.asp
+
 Socioekonomske značilnosti:
+
 * https://pxweb.stat.si/pxweb/Database/Dem_soc/05_prebivalstvo/40_selitve/20_05N32_soc_ek_znac_odsel/20_05N32_soc_ek_znac_odsel.asp (za odseljevanje)
+
 * https://pxweb.stat.si/pxweb/Database/Dem_soc/05_prebivalstvo/40_selitve/15_05N31_soc_ek_znac_prisel/15_05N31_soc_ek_znac_prisel.asp (za priseljevanje)
 
 
