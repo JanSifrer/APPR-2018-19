@@ -1,35 +1,32 @@
-##NASLOV
-Analiza selitev Slovencev
+## Analiza podatkov s programom R, 2018/19
 
-##OPIS PROJEKTA
-V tem projektru bomo obravnavali v katere države se selijo Slovenci, pri kakšni starosti se preseljujejo, ter zakaj se preseljujejo. Obravnavali pa bomo tudi kdo in iz kje se priseljuje v Slovenijo.
-
-#VIRI
-Za podatke bomo uporabljali Si-Stat: https://pxweb.stat.si/pxweb/Database/Dem_soc/Dem_soc.asp
-Podatke za meddržavne selitve bomo dobili iz: https://pxweb.stat.si/pxweb/Database/Dem_soc/05_prebivalstvo/40_selitve/05_05N10_meddrzavne/05_05N10_meddrzavne.asp
-Socioekonomske značilnosti pa bomo dobivali na teh dveh spletnih straneh: 
-https://pxweb.stat.si/pxweb/Database/Dem_soc/05_prebivalstvo/40_selitve/20_05N32_soc_ek_znac_odsel/20_05N32_soc_ek_znac_odsel.asp (za odseljevanje)
-https://pxweb.stat.si/pxweb/Database/Dem_soc/05_prebivalstvo/40_selitve/15_05N31_soc_ek_znac_prisel/15_05N31_soc_ek_znac_prisel.asp (za priseljevanje)
-
-
-
-
-
-
-
-
-
-# Analiza podatkov s programom R, 2018/19
+# Jan Šifrer
 
 Repozitorij z gradivi pri predmetu APPR v študijskem letu 2018/19
 
 * [![Shiny](http://mybinder.org/badge.svg)](http://beta.mybinder.org/v2/gh/JanSifrer/APPR-2018-19/master?urlpath=shiny/APPR-2018-19/projekt.Rmd) Shiny
 * [![RStudio](http://mybinder.org/badge.svg)](http://beta.mybinder.org/v2/gh/JanSifrer/APPR-2018-19/master?urlpath=rstudio) RStudio
 
-## Tematika
+## Analiza preseljevanja Slovencev
 
-Izbrali si boste temo, s katero se bo vaš projekt ukvarjal.
-Tukaj boste napisali, kje ste dobili podatke, ter kakšen je vaš cilj.
+Za projektno nalogo sem si izbral analizo preseljevanja Slovencev. Podatke bom dobil na statističnemu uradu Republike Slovenije (SI-STAT), pod tematiko demografsko in socialno področje – selitve. Moj cilj je, da prikažem kolikšen delež Slovencev se seli, pri kakšni starosti se selijo, zakaj se selijo in v katere države se največ Slovencev izseli. Zanimalo pa me bo tudi obratno, torej kaj je razlog da se ljudje priseljujejo v Slovenijo, ter iz kje prhajajo.
+
+## Tabele
+* tabela 1: vrsta selitve, starostne skupine, spol, letno, državljanstvo
+* tabela 2: Selitveno gibanje prebivalstva po občinah, Slovenija, letno
+* tabela 3: Odseljeni prebivalci, stari 15 ali več let, po izobrazbi, državi prihodnjega prebivališča, spolu in državljanstvu, Slovenija, letno
+* tabela 4: Priseljeni tujci po namenu priselitve in državi državljanstva, Slovenija, letno
+
+
+## Viri
+SI-STAT:
+* https://pxweb.stat.si/pxweb/Database/Dem_soc/Dem_soc.asp
+Podatki o meddržavnih selitvah:
+* https://pxweb.stat.si/pxweb/Database/Dem_soc/05_prebivalstvo/40_selitve/05_05N10_meddrzavne/05_05N10_meddrzavne.asp
+Socioekonomske značilnosti:
+* https://pxweb.stat.si/pxweb/Database/Dem_soc/05_prebivalstvo/40_selitve/20_05N32_soc_ek_znac_odsel/20_05N32_soc_ek_znac_odsel.asp (za odseljevanje)
+* https://pxweb.stat.si/pxweb/Database/Dem_soc/05_prebivalstvo/40_selitve/15_05N31_soc_ek_znac_prisel/15_05N31_soc_ek_znac_prisel.asp (za priseljevanje)
+
 
 ## Program
 
