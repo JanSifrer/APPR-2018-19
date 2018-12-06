@@ -27,6 +27,20 @@ uvozi.obcine <- function() {
   return(tabela)
 }
 
+uvozi.tabelo <- function() {
+  data <- read_csv2("podatki/deltabele1.csv", skip=3, na=c("", "..."),
+                    locale=locale(encoding="Windows-1250")) %>% fill(1) %>% drop_na(2)
+  colnames(data) <- c("vrsta", "starost",
+                      paste(colnames(data)[-(1:2)] %>% strapplyc("^([^_]*)") %>% unlist(),
+                      matrix(rep(1991:2017, 3), nrow=3, byrow=TRUE), sep="_"))
+  data <- melt(data, id.vars=c("vrsta", "starost"), value.name="stevilo") %>%
+    separate(variable, c("spol", "leto"), sep="_") %>%
+    mutate(leto=parse_number(leto))
+  return(data)
+}
+data <- uvozi.tabelo()
+
+
 # Funkcija, ki uvozi podatke iz datoteke druzine.csv
 uvozi.druzine <- function(obcine) {
   data <- read_csv2("podatki/druzine.csv", col_names=c("obcina", 1:4),
@@ -52,3 +66,4 @@ druzine <- uvozi.druzine(levels(obcine$obcina))
 # datoteko, tukaj pa bi klicali tiste, ki jih potrebujemo v
 # 2. fazi. Seveda bi morali ustrezno datoteko uvoziti v prihodnjih
 # fazah.
+
