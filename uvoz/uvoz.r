@@ -27,7 +27,7 @@ uvozi.obcine <- function() {
   return(tabela)
 }
 
-uvozi.tabelo <- function() {
+uvozi.meddrzavne.selitve1 <- function() {
   data <- read_csv2("podatki/deltabele1.csv", skip=3, na=c("", "..."),
                     locale=locale(encoding="Windows-1250")) %>% fill(1) %>% drop_na(2)
   colnames(data) <- c("vrsta", "starost",
@@ -38,7 +38,35 @@ uvozi.tabelo <- function() {
     mutate(leto=parse_number(leto))
   return(data)
 }
-data <- uvozi.tabelo()
+meddrzavne.selitve1 <- uvozi.meddrzavne.selitve1()
+
+
+
+uvozi.meddrzavne.selitve <- function() {
+  data <- read_csv2("podatki/tabela1.csv", skip=3, na=c("", "..."),
+                    locale=locale(encoding="windows-1250")) %>% fill(1) %>% drop_na(2)
+  colnames(data) <- c("vrsta", "starost",
+                      paste(colnames(data)[-(1:2)] %>% strapplyc("^([^_]*)") %>% unlist(),
+                      matrix(rep(1991:2017, 2), nrow=2, byrow=TRUE), sep="_"))
+  data <- melt(data, id.vars=c("vrsta", "starost"), value.name="stevilo") %>%
+    separate(variable, c("spol", "leto"), sep="_") %>%
+    mutate(leto=parse_number(leto))
+  return(data)
+}
+meddrzavne.selitve <- uvozi.meddrzavne.selitve()
+
+uvozi.meddrzavne.selitve.drzavljanstvo <- function() {
+  data <- read_csv2("podatki/meddrzavne.selitve2.csv", skip=3, na=c("", "..."),
+                    locale=locale(encoding="windows-1250")) %>% fill(1) %>% drop_na(2)
+  colnames(data) <- c("vrsta", "starost",
+                      paste(colnames(data)[-(1:2)] %>% strapplyc("^([^_]*)") %>% unlist(),
+                            matrix(rep(1996:2017, 2), nrow=2, byrow=TRUE), sep="_"))
+  data <- melt(data, id.vars=c("vrsta", "starost"), value.name="stevilo") %>%
+    separate(variable, c("spol", "leto"), sep="_") %>%
+    mutate(leto=parse_number(leto))
+  return(data)
+}
+meddrzavne.selitve.drzavljanstvo <- uvozi.meddrzavne.selitve.drzavljanstvo()
 
 
 # Funkcija, ki uvozi podatke iz datoteke druzine.csv
