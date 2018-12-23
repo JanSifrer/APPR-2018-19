@@ -12,10 +12,11 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2018/19
 Za projektno nalogo sem si izbral analizo preseljevanja Slovencev. Podatke bom dobil na statističnemu uradu Republike Slovenije (SI-STAT), pod tematiko demografsko in socialno področje – selitve. Moj cilj je, da prikažem kolikšen delež Slovencev se seli, pri kakšni starosti se selijo, zakaj se selijo in v katere države se največ Slovencev preseli. Zanimalo pa me bo tudi obratno, torej kaj je razlog da se ljudje priseljujejo v Slovenijo, ter iz kje prhajajo.
 
 ## Tabele
-* tabela 1: vrsta selitve, starostne skupine, spol, letno, državljanstvo
-* tabela 2: Selitveno gibanje prebivalstva po občinah, Slovenija, letno
-* tabela 3: Odseljeni prebivalci, stari 15 ali več let, po izobrazbi, državi prihodnjega prebivališča, spolu in državljanstvu, Slovenija, letno
-* tabela 4: Priseljeni tujci po namenu priselitve in državi državljanstva, Slovenija, letno
+* tabela 1: vrsta selitve, starostne skupine, spol, leto, število
+* tabela 2: vrsta selitve, država selitve, spol, leto, število
+* tabela 3: Selitveno gibanje prebivalstva po občinah, Slovenija, leto
+* tabela 4: Odseljeni prebivalci, stari 15 ali več let, po izobrazbi, državi prihodnjega prebivališča, spolu in državljanstvu, Slovenija, leto
+* tabela 5: Priseljeni tujci po namenu priselitve in državi državljanstva, Slovenija, leto
 
 
 ## Viri
