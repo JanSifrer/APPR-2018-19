@@ -16,7 +16,7 @@ Za projektno nalogo sem si izbral analizo preseljevanja Slovencev. Podatke bom d
 * tabela 2: vrsta selitve, država selitve, spol, leto, število
 * tabela 3: Selitveno gibanje prebivalstva po občinah, Slovenija, leto
 * tabela 4: Odseljeni prebivalci, stari 15 ali več let, po izobrazbi, državi prihodnjega prebivališča, spolu in državljanstvu, Slovenija, leto
-* tabela 5: Priseljeni tujci po namenu priselitve in državi državljanstva, Slovenija, leto
+* tabela 5: Priseljeni prebivalci, stari 15 ali več let, po izobrazbi, državi prihodnjega prebivališča, spolu in državljanstvu, Slovenija, leto
 
 
 ## Viri

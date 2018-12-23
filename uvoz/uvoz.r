@@ -2,6 +2,103 @@
 
 sl <- locale("sl", decimal_mark=",", grouping_mark=".")
 
+
+#Funkcija za uvoz vseh podatkov o meddržavnih selitvah
+
+uvozi.meddrzavne.selitve.vsi <- function() {
+  data <- read_csv2("podatki/deltabele1.csv", skip=3, na=c("", "..."),
+                    locale=locale(encoding="Windows-1250")) %>% fill(1) %>% drop_na(2)
+  colnames(data) <- c("vrsta", "starost",
+                      paste(colnames(data)[-(1:2)] %>% strapplyc("^([^_]*)") %>% unlist(),
+                      matrix(rep(1991:2017, 3), nrow=3, byrow=TRUE), sep="_"))
+  data <- melt(data, id.vars=c("vrsta", "starost"), value.name="stevilo") %>%
+    separate(variable, c("spol", "leto"), sep="_") %>%
+    mutate(leto=parse_number(leto))
+  return(data)
+}
+meddrzavne.selitve.vsi <- uvozi.meddrzavne.selitve.vsi()
+
+
+#Funkcija za uvoz osnovnih podatkov o meddržavnih selitvah
+
+uvozi.meddrzavne.selitve.osnovni <- function() {
+  data <- read_csv2("podatki/tabela1.csv", skip=3, na=c("", "..."),
+                    locale=locale(encoding="windows-1250")) %>% fill(1) %>% drop_na(2)
+  colnames(data) <- c("vrsta", "starost",
+                      paste(colnames(data)[-(1:2)] %>% strapplyc("^([^_]*)") %>% unlist(),
+                      matrix(rep(1991:2017, 2), nrow=2, byrow=TRUE), sep="_"))
+  data <- melt(data, id.vars=c("vrsta", "starost"), value.name="stevilo") %>%
+    separate(variable, c("spol", "leto"), sep="_") %>%
+    mutate(leto=parse_number(leto))
+  return(data)
+}
+meddrzavne.selitve.osnovni <- uvozi.meddrzavne.selitve.osnovni()
+
+
+
+
+#Funkcija za uvoz državljanstva selilcev
+
+uvozi.meddrzavne.selitve.drzavljanstvo <- function() {
+  data <- read_csv2("podatki/meddrzavne.selitve2.csv", skip=3, na=c("", "..."),
+                    locale=locale(encoding="windows-1250")) %>% fill(1) %>% drop_na(2)
+  colnames(data) <- c("vrsta", "drzava",
+                      paste(colnames(data)[-(1:2)] %>% strapplyc("^([^_]*)") %>% unlist(),
+                            matrix(rep(1996:2017, 2), nrow=2, byrow=TRUE), sep="_"))
+  data <- melt(data, id.vars=c("vrsta", "drzava"), value.name="stevilo") %>%
+    separate(variable, c("spol", "leto"), sep="_") %>%
+    mutate(leto=parse_number(leto))
+  return(data)
+}
+meddrzavne.selitve.drzavljanstvo <- uvozi.meddrzavne.selitve.drzavljanstvo()
+
+
+
+
+
+
+
+
+#Funkcija za uvoz selitvenega gibanja
+
+uvozi.selitveno.gibanje <- function() {
+  data <- read_csv2("podatki/selitveno.gibanje.csv", skip=3, na=c("", "...", "-"),
+                    locale=locale(encoding="windows-1250"))
+  colnames(data) <- c("obcina",
+                      paste(colnames(data)[-(1)] %>% strapplyc("^([^_]*)") %>% unlist(),
+                            matrix(rep(1995:2017, 4), nrow=4, byrow=TRUE), sep="_"))
+  return(data)
+}
+selitveno.gibanje <- uvozi.selitveno.gibanje()
+
+
+
+#Funkcija za uvoz odseljencev
+
+uvozi.odseljene <- function() {
+  data <- read_csv2("podatki/odseljeni.prebivalci.csv", skip=3,
+                    locale=locale(encoding="windows-1250")) %>% fill(1) %>% drop_na(3)
+  
+  return(data)
+}
+odseljeni.prebivalci <- uvozi.odseljene()
+
+
+
+#Funkcija za uvoz priseljencev
+
+uvozi.priseljene <- function() {
+  data <- read_csv2("podatki/priseljeni.prebivalci.csv", skip=3,
+                    locale=locale(encoding="windows-1250")) %>% fill(1) %>% drop_na(3)
+  
+  return(data)
+}
+priseljeni.prebivalci <- uvozi.priseljene()
+
+
+
+
+
 # Funkcija, ki uvozi občine iz Wikipedije
 uvozi.obcine <- function() {
   link <- "http://sl.wikipedia.org/wiki/Seznam_ob%C4%8Din_v_Sloveniji"
@@ -27,46 +124,6 @@ uvozi.obcine <- function() {
   return(tabela)
 }
 
-uvozi.meddrzavne.selitve1 <- function() {
-  data <- read_csv2("podatki/deltabele1.csv", skip=3, na=c("", "..."),
-                    locale=locale(encoding="Windows-1250")) %>% fill(1) %>% drop_na(2)
-  colnames(data) <- c("vrsta", "starost",
-                      paste(colnames(data)[-(1:2)] %>% strapplyc("^([^_]*)") %>% unlist(),
-                      matrix(rep(1991:2017, 3), nrow=3, byrow=TRUE), sep="_"))
-  data <- melt(data, id.vars=c("vrsta", "starost"), value.name="stevilo") %>%
-    separate(variable, c("spol", "leto"), sep="_") %>%
-    mutate(leto=parse_number(leto))
-  return(data)
-}
-meddrzavne.selitve1 <- uvozi.meddrzavne.selitve1()
-
-
-
-uvozi.meddrzavne.selitve <- function() {
-  data <- read_csv2("podatki/tabela1.csv", skip=3, na=c("", "..."),
-                    locale=locale(encoding="windows-1250")) %>% fill(1) %>% drop_na(2)
-  colnames(data) <- c("vrsta", "starost",
-                      paste(colnames(data)[-(1:2)] %>% strapplyc("^([^_]*)") %>% unlist(),
-                      matrix(rep(1991:2017, 2), nrow=2, byrow=TRUE), sep="_"))
-  data <- melt(data, id.vars=c("vrsta", "starost"), value.name="stevilo") %>%
-    separate(variable, c("spol", "leto"), sep="_") %>%
-    mutate(leto=parse_number(leto))
-  return(data)
-}
-meddrzavne.selitve <- uvozi.meddrzavne.selitve()
-
-uvozi.meddrzavne.selitve.drzavljanstvo <- function() {
-  data <- read_csv2("podatki/meddrzavne.selitve2.csv", skip=3, na=c("", "..."),
-                    locale=locale(encoding="windows-1250")) %>% fill(1) %>% drop_na(2)
-  colnames(data) <- c("vrsta", "starost",
-                      paste(colnames(data)[-(1:2)] %>% strapplyc("^([^_]*)") %>% unlist(),
-                            matrix(rep(1996:2017, 2), nrow=2, byrow=TRUE), sep="_"))
-  data <- melt(data, id.vars=c("vrsta", "starost"), value.name="stevilo") %>%
-    separate(variable, c("spol", "leto"), sep="_") %>%
-    mutate(leto=parse_number(leto))
-  return(data)
-}
-meddrzavne.selitve.drzavljanstvo <- uvozi.meddrzavne.selitve.drzavljanstvo()
 
 
 # Funkcija, ki uvozi podatke iz datoteke druzine.csv
