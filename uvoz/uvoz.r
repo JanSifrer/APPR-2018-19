@@ -47,14 +47,10 @@ uvozi.meddrzavne.selitve.drzavljanstvo <- function() {
                             matrix(rep(1996:2017, 2), nrow=2, byrow=TRUE), sep="_"))
   data <- melt(data, id.vars=c("vrsta", "drzava"), value.name="stevilo") %>%
     separate(variable, c("spol", "leto"), sep="_") %>%
-    mutate(leto=parse_number(leto))
+    mutate(leto=parse_number(leto)) %>% drop_na(5)
   return(data)
 }
 meddrzavne.selitve.drzavljanstvo <- uvozi.meddrzavne.selitve.drzavljanstvo()
-
-
-
-
 
 
 
@@ -67,6 +63,11 @@ uvozi.selitveno.gibanje <- function() {
   colnames(data) <- c("obcina",
                       paste(colnames(data)[-(1)] %>% strapplyc("^([^_]*)") %>% unlist(),
                             matrix(rep(1995:2017, 4), nrow=4, byrow=TRUE), sep="_"))
+  data <- melt(data, id.vars=c("obcina"), value.name="stevilo") %>%
+    separate(variable, c("vrsta", "spol"), sep=" - ") %>%
+    separate(spol, c("spol", "leto"), sep="_") %>%
+    mutate(leto=parse_number(leto)) %>% drop_na(5)
+  data <- data[c(2,3,1,4,5)]
   return(data)
 }
 selitveno.gibanje <- uvozi.selitveno.gibanje()
@@ -76,9 +77,11 @@ selitveno.gibanje <- uvozi.selitveno.gibanje()
 #Funkcija za uvoz odseljencev
 
 uvozi.odseljene <- function() {
-  data <- read_csv2("podatki/odseljeni.prebivalci.csv", skip=3,
-                    locale=locale(encoding="windows-1250")) %>% fill(1) %>% drop_na(3)
-  
+  data <- read_csv2("podatki/odseljeni.prebivalci.novo2.csv", skip=2, na=c("", "...", "-"),
+                    locale=locale(encoding="windows-1250")) %>% fill(1,2,3,4) %>% drop_na(6)
+  colnames(data) <- c("spol", "drzava", "leto", "izobrazba", "drzavljanstvo", "stevilo")
+  data <- data[c(5,2,1,3,6)]
+  data <- data %>% mutate(drzava=drzava %>% strapplyc("^....(.*)") %>% unlist())
   return(data)
 }
 odseljeni.prebivalci <- uvozi.odseljene()
@@ -88,9 +91,11 @@ odseljeni.prebivalci <- uvozi.odseljene()
 #Funkcija za uvoz priseljencev
 
 uvozi.priseljene <- function() {
-  data <- read_csv2("podatki/priseljeni.prebivalci.csv", skip=3,
-                    locale=locale(encoding="windows-1250")) %>% fill(1) %>% drop_na(3)
-  
+  data <- read_csv2("podatki/priseljeni.prebivalci.novo2.csv", skip=2, na=c("", "...", "-"),
+                    locale=locale(encoding="windows-1250")) %>% fill(1,2,3,4) %>% drop_na(6)
+  colnames(data) <- c("spol", "drzava", "leto", "izobrazba", "drzavljanstvo", "stevilo")
+  data <- data[c(5,2,1,3,6)]
+  data <- data %>% mutate(drzava=drzava %>% strapplyc("^....(.*)") %>% unlist())
   return(data)
 }
 priseljeni.prebivalci <- uvozi.priseljene()
