@@ -92,7 +92,7 @@ odseljeni.prebivalci <- uvozi.odseljene()
 
 uvozi.priseljene <- function() {
   data <- read_csv2("podatki/priseljeni.prebivalci.novo2.csv", skip=2, na=c("", "...", "-"),
-                    locale=locale(encoding="windows-1250")) %>% fill(1,2,3,4) %>% drop_na(6)
+                    locale=locale(encoding="windows-1250")) %>% fill(1:4) %>% drop_na(6)
   colnames(data) <- c("spol", "drzava", "leto", "izobrazba", "drzavljanstvo", "stevilo")
   data <- data[c(5,2,1,3,6)]
   data <- data %>% mutate(drzava=drzava %>% strapplyc("^....(.*)") %>% unlist())
@@ -101,6 +101,14 @@ uvozi.priseljene <- function() {
 priseljeni.prebivalci <- uvozi.priseljene()
 
 
+#Funkcija za uvoz iz spletne strani
+uvozi.bdp <- function() {
+  data <- read.csv("podatki/bdp.csv", encoding="windows-1250", na=c(":"), 
+                   col.names=c("Cas", "Drzava", "X1", "X2", "BDP", "X3"))
+  data <- data[,-(3:4)] 
+  data <- data[,-4]
+}
+bdp <- uvozi.bdp()
 
 
 
