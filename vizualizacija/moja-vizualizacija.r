@@ -6,10 +6,38 @@ library(reshape2)
 library(ggplot2)
 library(munsell)
 
-#Probam narediti graf drzavljanov ki se selijo
+#Probam narediti nekaj grafov:
 graf_drzavljanov <- ggplot(data = meddrzavne.selitve.drzavljanstvo,
-                           mapping = aes(x=leto, y=stevilo, fill=Drzava)) +
+                           mapping = aes(x=leto, y=stevilo, fill=drzava)) +
   geom_bar(stat = 'identity', position = 'dodge')
+
+
+#Probam narediti lepši graf, in sicer da nebi vzel vseh BDP-jev, ampak samo njihovo povprečje
+graf_bdp <- ggplot(data = bdp %>% drop_na(3), mapping = aes(x=Cas,y=mean_(bdp$BDP, 
+                                                                    groups=bdp$Drzava),
+                                                            fill=Drzava)) + 
+  geom_bar(stat = 'identity', position = 'dodge', show.legend = FALSE)
+
+#plot(graf_bdp)
+
+graf_odseljeni <- ggplot(data = odseljeni.prebivalci, mapping = aes(x = leto, y = stevilo,
+                         fill = drzava)) + 
+  geom_bar(stat = 'identity', position = 'dodge', show.legend = TRUE)
+
+#plot(graf_odseljeni)
+
+graf_priseljeni <-  ggplot(data = priseljeni.prebivalci, mapping = aes(x = leto, y = stevilo,
+                                                                      fill = drzava)) + 
+  geom_bar(stat = 'identity', position = 'dodge', show.legend = TRUE)
+
+#plot(graf_priseljeni)
+
+graf_gibanj <- ggplot(data = selitveno.gibanje, mapping = aes(x = leto, y = stevilo,
+                                                                  fill = obcina)) + 
+  geom_bar(stat = 'identity', position = 'dodge', show.legend = FALSE)
+
+#plot(graf_gibanj)
+
 
 
 # Uvozimo zemljevid Sveta

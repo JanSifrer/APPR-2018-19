@@ -40,7 +40,7 @@ meddrzavne.selitve.osnovni <- uvozi.meddrzavne.selitve.osnovni()
 #Funkcija za uvoz državljanstva selilcev
 
 uvozi.meddrzavne.selitve.drzavljanstvo <- function() {
-  data <- read_csv2("podatki/meddrzavne.selitve2.csv", skip=3, na=c("", "..."),
+  data <- read_csv2("podatki/meddrzavne.selitve2.csv", skip=3, na=c("", "...", "EVROPA"),
                     locale=locale(encoding="windows-1250")) %>% fill(1) %>% drop_na(2)
   colnames(data) <- c("vrsta", "drzava",
                       paste(colnames(data)[-(1:2)] %>% strapplyc("^([^_]*)") %>% unlist(),
