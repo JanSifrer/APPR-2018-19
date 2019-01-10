@@ -81,7 +81,7 @@ uvozi.odseljene <- function() {
                     locale=locale(encoding="windows-1250")) %>% fill(1,2,3,4) %>% drop_na(6)
   colnames(data) <- c("spol", "drzava", "leto", "izobrazba", "drzavljanstvo", "stevilo")
   data <- data[c(5,2,1,3,6)]
-  data <- data %>% mutate(drzava=drzava %>% strapplyc("^....(.*)") %>% unlist())
+  data <- data %>% mutate(drzava=drzava %>% strapplyc("^[.]*(.*)") %>% unlist())
   return(data)
 }
 odseljeni.prebivalci <- uvozi.odseljene()
@@ -95,7 +95,7 @@ uvozi.priseljene <- function() {
                     locale=locale(encoding="windows-1250")) %>% fill(1:4) %>% drop_na(6)
   colnames(data) <- c("spol", "drzava", "leto", "izobrazba", "drzavljanstvo", "stevilo")
   data <- data[c(5,2,1,3,6)]
-  data <- data %>% mutate(drzava=drzava %>% strapplyc("^....(.*)") %>% unlist())
+  data <- data %>% mutate(drzava=drzava %>% strapplyc("^[.]*(.*)") %>% unlist())
   return(data)
 }
 priseljeni.prebivalci <- uvozi.priseljene()
