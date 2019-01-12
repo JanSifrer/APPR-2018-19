@@ -1,11 +1,3 @@
-library(rgdal)
-library(rgeos)
-library(mosaic)
-library(maptools)
-library(reshape2)
-library(ggplot2)
-library(munsell)
-
 #Probam narediti nekaj grafov:
 graf_drzavljanov <- ggplot(data = meddrzavne.selitve.drzavljanstvo,
                            mapping = aes(x=leto, y=stevilo, fill=drzava)) +
@@ -28,73 +20,49 @@ graf_bdp <- ggplot(data = funkcija.bdp(), mapping = aes(x=reorder(Drzava, Povpre
 
 #Probam sešteti za vsako državo koliko se je določenih državljanov preselilo vanjo. To bom kasneje probal še
 #narisati na zemljevid Evrope.
-funkcija.odseljeni.tuji <- function() {
-  odseljeni.tuji <- odseljeni.prebivalci %>% filter(drzavljanstvo == "Tuji državljani")
-  vsota.tuji <- odseljeni.tuji %>% group_by(drzava) %>% summarise(Stevilo = sum(stevilo))
-  return(vsota.tuji)
-}
 
-funkcija.odseljeni.domaci <- function() {
-  odseljeni.domaci <- odseljeni.prebivalci %>% filter(drzavljanstvo == "Državljani RS")
-  vsota.domaci <- odseljeni.domaci %>% group_by(drzava) %>% summarise(Stevilo = sum(stevilo))
-  return(vsota.domaci)
-}
-
-
-graf_odseljeni <- ggplot(data = funkcija.odseljeni.domaci(), mapping = aes(x = drzava, y = Stevilo,
-                         fill = drzava)) + 
-  geom_bar(stat = 'identity', position = 'dodge', show.legend = FALSE)
-
-graf_priseljeni <- ggplot(data = funkcija.odseljeni.tuji(), mapping = aes(x = drzava, y = Stevilo,
-                                                                                                               fill = drzava)) + 
-  geom_bar(stat = 'identity', position = 'dodge', show.legend = FALSE)
-
-plot(graf_odseljeni + graf_priseljeni)+ coord_flip()
-
-ggplot(data=odseljeni.prebivalci %>% group_by(drzava, drzavljanstvo) %>% summarise(Stevilo=sum(stevilo)),
-       aes(x = drzava, y = Stevilo, fill = drzava)) +
-  geom_bar(stat = 'identity', position = 'dodge', show.legend = FALSE) +
-  facet_grid(~ drzavljanstvo) + coord_flip()
-
-ggplot(data=odseljeni.prebivalci %>% group_by(drzava, drzavljanstvo) %>% summarise(Stevilo=sum(stevilo)),
-       aes(x = drzava, y = Stevilo, fill = drzavljanstvo)) +
-  geom_bar(stat = 'identity', position = 'dodge') +
-  coord_flip()
+# ggplot(data=odseljeni.prebivalci %>% group_by(drzava, drzavljanstvo) %>% summarise(Stevilo=sum(stevilo)),
+#        aes(x = drzava, y = Stevilo, fill = drzava)) +
+#   geom_bar(stat = 'identity', position = 'dodge', show.legend = FALSE) +
+#   facet_grid(~ drzavljanstvo) + coord_flip()
+# 
+# ggplot(data=odseljeni.prebivalci %>% group_by(drzava, drzavljanstvo) %>% summarise(Stevilo=sum(stevilo)),
+#        aes(x = drzava, y = Stevilo, fill = drzavljanstvo)) +
+#   geom_bar(stat = 'identity', position = 'dodge') + ggtitle("Odseljeni prebivalci glede na drzavljanstvo") +
+#   coord_flip()
 
 
-graf_priseljeni <-  ggplot(data = priseljeni.prebivalci, mapping = aes(x = leto, y = stevilo,
-                                                                      fill = drzava)) + 
-  geom_bar(stat = 'identity', position = 'dodge', show.legend = TRUE) 
+#naredil graf v katerem se vidi iz katerih držav je prišlo največ ljudi z določeno izobrazbo.
+#npr. iz Bosne in Hercegovine je prišlo največ ljudi - tako s srednešolsko kot tudi z osnovnošolsko izobrazbo.
+
+# ggplot(data=priseljeni.prebivalci %>% group_by(drzava, izobrazba) %>% summarise(Stevilo=sum(stevilo)),
+#        aes(x = drzava, y = Stevilo, fill = izobrazba)) +
+#   geom_bar(stat = 'identity', position = 'dodge') + ggtitle("Priseljeni prebivalci glede na izobrazbo") +
+#   coord_flip()
 
 #plot(graf_priseljeni)
 
-graf_gibanj <- ggplot(data = selitveno.gibanje, mapping = aes(x = leto, y = stevilo,
-                                                                  fill = obcina)) + 
-  geom_bar(stat = 'identity', position = 'dodge', show.legend = FALSE)
+#probal bom narisati zemljevid iz kje  kerih občin se je največ Slovencev izselilo,
+#in v katere občine se je največ Slovencev priselilo.
 
-#plot(graf_gibanj)
+odseljeni.obcine <- selitveno.gibanje %>% filter(vrsta == "Odseljeni v tujino") %>% 
+                              group_by(obcina) %>% summarise(vsota=sum(stevilo))
 
+priseljeni.obcine <- selitveno.gibanje %>% filter(vrsta == "Priseljeni iz tujine") %>% 
+                              group_by(obcina) %>% summarise(vsota=sum(stevilo))
+razlika.obcine <- merge(odseljeni.obcine, priseljeni.obcine, by="obcina")
+razlika.obcine["razlika"] <- priseljeni.obcine$vsota - odseljeni.obcine$vsota
 
-
-# Uvozimo zemljevid Sveta
-# source("https://raw.githubusercontent.com/jaanos/APPR-2018-19/master/lib/uvozi.zemljevid.r")
-source("lib/uvozi.zemljevid.r") #Nastavi pravo datoteko
-
-svet <- uvozi.zemljevid("https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/cultural/ne_50m_admin_0_countries.zip",
-                        "ne_50m_admin_0_countries") %>% fortify()
-
-#Nekaj mi ne dela. Zemljevid mi prenese, shrani v mapo 'zemljevidi' pol pa javi
-#neko napako: Cannot open data source??
+# ggplot() + geom_polygon(data=left_join(zemljevid, razlika.obcine, by=c("OB_UIME"="obcina")),
+#                         aes(x=long, y=lat, group=group, fill=razlika)) +
+#   ggtitle("Razlika priseljenih in odseljenih") + xlab("") + ylab("") +
+#   guides(fill=guide_colorbar(title="Število"))
 
 
-# Zemljevid sveta skrčimo na zemljevid Evrope
-europe <- filter(svet, CONTINENT == "Europe")
-europe <- filter(europe, long < 55 & long > -45 & lat > 30 & lat < 85)
-
-ggplot(europe, aes(x=long, y=lat, group=group, fill=NAME)) +
-  geom_polygon() +
-  labs(title="Evropa - osnovna slika") +
-  theme(legend.position="none")
-
-
-
+#Uvozim zemljevid Slovenije
+zemljevid <- uvozi.zemljevid("http://baza.fmf.uni-lj.si/OB.zip", "OB",
+                             pot.zemljevida="OB", encoding="Windows-1250")
+levels(zemljevid$OB_UIME) <- levels(zemljevid$OB_UIME) %>%
+{ gsub("Slovenskih", "Slov.", .) } %>% { gsub("-", " - ", .) }
+zemljevid$OB_UIME <- factor(zemljevid$OB_UIME, levels=levels(obcine$obcina))
+zemljevid <- fortify(zemljevid)

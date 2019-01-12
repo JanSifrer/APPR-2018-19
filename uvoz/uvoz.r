@@ -93,7 +93,7 @@ odseljeni.prebivalci <- uvozi.odseljene()
 uvozi.priseljene <- function() {
   data <- read_csv2("podatki/priseljeni.prebivalci.novo2.csv", skip=2, na=c("", "...", "-"),
                     locale=locale(encoding="windows-1250")) %>% fill(1:4) %>% drop_na(6)
-  colnames(data) <- c("spol", "drzava", "leto", "izobrazba", "drzavljanstvo", "stevilo")
+  colnames(data) <- c("spol", "drzava", "leto", "drzavljanstvo", "izobrazba", "stevilo")
   data <- data[c(5,2,1,3,6)]
   data <- data %>% mutate(drzava=drzava %>% strapplyc("^[.]*(.*)") %>% unlist())
   return(data)
