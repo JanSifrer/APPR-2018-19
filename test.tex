@@ -1,0 +1,452 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Poročilo pri predmetu Analiza podatkov s programom R},
+            pdfauthor={Jan Šifrer},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Poročilo pri predmetu Analiza podatkov s programom R}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Jan Šifrer}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+    \date{}
+    \predate{}\postdate{}
+  
+\usepackage[slovene]{babel}
+\usepackage{graphicx}
+
+\begin{document}
+\maketitle
+
+\section{Izbira teme}\label{izbira-teme}
+
+Za vzorec bomo prikazali nekaj podatkov o slovenskih občinah.
+
+\begin{figure}
+\centering
+\includegraphics{slike/grb.png}
+\caption{}
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\section{Obdelava, uvoz in čiščenje
+podatkov}\label{obdelava-uvoz-in-ciscenje-podatkov}
+
+\begin{verbatim}
+## Warning: Missing column names filled in: 'X1' [1], 'X2' [2]
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Duplicated column names deduplicated: 'Spol - SKUPAJ' => 'Spol -
+## SKUPAJ_1' [6], 'Moški' => 'Moški_1' [7], 'Ženske' => 'Ženske_1' [8], 'Spol
+## - SKUPAJ' => 'Spol - SKUPAJ_2' [9], 'Moški' => 'Moški_2' [10], 'Ženske'
+## => 'Ženske_2' [11], 'Spol - SKUPAJ' => 'Spol - SKUPAJ_3' [12], 'Moški' =>
+## 'Moški_3' [13], 'Ženske' => 'Ženske_3' [14], 'Spol - SKUPAJ' => 'Spol -
+## SKUPAJ_4' [15], 'Moški' => 'Moški_4' [16], 'Ženske' => 'Ženske_4' [17],
+## 'Spol - SKUPAJ' => 'Spol - SKUPAJ_5' [18], 'Moški' => 'Moški_5' [19],
+## 'Ženske' => 'Ženske_5' [20], 'Spol - SKUPAJ' => 'Spol - SKUPAJ_6' [21],
+## 'Moški' => 'Moški_6' [22], 'Ženske' => 'Ženske_6' [23], 'Spol - SKUPAJ'
+## => 'Spol - SKUPAJ_7' [24], 'Moški' => 'Moški_7' [25], 'Ženske' =>
+## 'Ženske_7' [26], 'Spol - SKUPAJ' => 'Spol - SKUPAJ_8' [27], 'Moški' =>
+## 'Moški_8' [28], 'Ženske' => 'Ženske_8' [29], 'Spol - SKUPAJ' => 'Spol -
+## SKUPAJ_9' [30], 'Moški' => 'Moški_9' [31], 'Ženske' => 'Ženske_9' [32],
+## 'Spol - SKUPAJ' => 'Spol - SKUPAJ_10' [33], 'Moški' => 'Moški_10' [34],
+## 'Ženske' => 'Ženske_10' [35], 'Spol - SKUPAJ' => 'Spol - SKUPAJ_11' [36],
+## 'Moški' => 'Moški_11' [37], 'Ženske' => 'Ženske_11' [38], 'Spol - SKUPAJ'
+## => 'Spol - SKUPAJ_12' [39], 'Moški' => 'Moški_12' [40], 'Ženske' =>
+## 'Ženske_12' [41], 'Spol - SKUPAJ' => 'Spol - SKUPAJ_13' [42], 'Moški' =>
+## 'Moški_13' [43], 'Ženske' => 'Ženske_13' [44], 'Spol - SKUPAJ' => 'Spol -
+## SKUPAJ_14' [45], 'Moški' => 'Moški_14' [46], 'Ženske' => 'Ženske_14' [47],
+## 'Spol - SKUPAJ' => 'Spol - SKUPAJ_15' [48], 'Moški' => 'Moški_15' [49],
+## 'Ženske' => 'Ženske_15' [50], 'Spol - SKUPAJ' => 'Spol - SKUPAJ_16' [51],
+## 'Moški' => 'Moški_16' [52], 'Ženske' => 'Ženske_16' [53], 'Spol - SKUPAJ'
+## => 'Spol - SKUPAJ_17' [54], 'Moški' => 'Moški_17' [55], 'Ženske' =>
+## 'Ženske_17' [56], 'Spol - SKUPAJ' => 'Spol - SKUPAJ_18' [57], 'Moški' =>
+## 'Moški_18' [58], 'Ženske' => 'Ženske_18' [59], 'Spol - SKUPAJ' => 'Spol -
+## SKUPAJ_19' [60], 'Moški' => 'Moški_19' [61], 'Ženske' => 'Ženske_19' [62],
+## 'Spol - SKUPAJ' => 'Spol - SKUPAJ_20' [63], 'Moški' => 'Moški_20' [64],
+## 'Ženske' => 'Ženske_20' [65], 'Spol - SKUPAJ' => 'Spol - SKUPAJ_21' [66],
+## 'Moški' => 'Moški_21' [67], 'Ženske' => 'Ženske_21' [68], 'Spol - SKUPAJ'
+## => 'Spol - SKUPAJ_22' [69], 'Moški' => 'Moški_22' [70], 'Ženske' =>
+## 'Ženske_22' [71], 'Spol - SKUPAJ' => 'Spol - SKUPAJ_23' [72], 'Moški' =>
+## 'Moški_23' [73], 'Ženske' => 'Ženske_23' [74], 'Spol - SKUPAJ' => 'Spol -
+## SKUPAJ_24' [75], 'Moški' => 'Moški_24' [76], 'Ženske' => 'Ženske_24' [77],
+## 'Spol - SKUPAJ' => 'Spol - SKUPAJ_25' [78], 'Moški' => 'Moški_25' [79],
+## 'Ženske' => 'Ženske_25' [80], 'Spol - SKUPAJ' => 'Spol - SKUPAJ_26' [81],
+## 'Moški' => 'Moški_26' [82], 'Ženske' => 'Ženske_26' [83]
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in rbind(names(probs), probs_f): number of columns of result is not
+## a multiple of vector length (arg 1)
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: 19 parsing failures.
+## row # A tibble: 5 x 5 col     row col   expected   actual    file                     expected   <int> <chr> <chr>      <chr>     <chr>                    actual 1     1 <NA>  83 columns 1 columns 'podatki/deltabele1.csv' file 2    22 <NA>  83 columns 1 columns 'podatki/deltabele1.csv' row 3    43 <NA>  83 columns 1 columns 'podatki/deltabele1.csv' col 4    64 <NA>  83 columns 1 columns 'podatki/deltabele1.csv' expected 5    65 <NA>  83 columns 1 columns 'podatki/deltabele1.csv'
+## ... ................. ... ........................................................... ........ ........................................................... ...... ........................................................... .... ........................................................... ... ........................................................... ... ........................................................... ........ ...........................................................
+## See problems(...) for more details.
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Missing column names filled in: 'X1' [1], 'X2' [2]
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Duplicated column names deduplicated: 'Moški' => 'Moški_1' [5],
+## 'Ženske' => 'Ženske_1' [6], 'Moški' => 'Moški_2' [7], 'Ženske' =>
+## 'Ženske_2' [8], 'Moški' => 'Moški_3' [9], 'Ženske' => 'Ženske_3' [10],
+## 'Moški' => 'Moški_4' [11], 'Ženske' => 'Ženske_4' [12], 'Moški' =>
+## 'Moški_5' [13], 'Ženske' => 'Ženske_5' [14], 'Moški' => 'Moški_6' [15],
+## 'Ženske' => 'Ženske_6' [16], 'Moški' => 'Moški_7' [17], 'Ženske' =>
+## 'Ženske_7' [18], 'Moški' => 'Moški_8' [19], 'Ženske' => 'Ženske_8' [20],
+## 'Moški' => 'Moški_9' [21], 'Ženske' => 'Ženske_9' [22], 'Moški' =>
+## 'Moški_10' [23], 'Ženske' => 'Ženske_10' [24], 'Moški' => 'Moški_11' [25],
+## 'Ženske' => 'Ženske_11' [26], 'Moški' => 'Moški_12' [27], 'Ženske' =>
+## 'Ženske_12' [28], 'Moški' => 'Moški_13' [29], 'Ženske' => 'Ženske_13' [30],
+## 'Moški' => 'Moški_14' [31], 'Ženske' => 'Ženske_14' [32], 'Moški' =>
+## 'Moški_15' [33], 'Ženske' => 'Ženske_15' [34], 'Moški' => 'Moški_16' [35],
+## 'Ženske' => 'Ženske_16' [36], 'Moški' => 'Moški_17' [37], 'Ženske' =>
+## 'Ženske_17' [38], 'Moški' => 'Moški_18' [39], 'Ženske' => 'Ženske_18' [40],
+## 'Moški' => 'Moški_19' [41], 'Ženske' => 'Ženske_19' [42], 'Moški' =>
+## 'Moški_20' [43], 'Ženske' => 'Ženske_20' [44], 'Moški' => 'Moški_21' [45],
+## 'Ženske' => 'Ženske_21' [46], 'Moški' => 'Moški_22' [47], 'Ženske' =>
+## 'Ženske_22' [48], 'Moški' => 'Moški_23' [49], 'Ženske' => 'Ženske_23' [50],
+## 'Moški' => 'Moški_24' [51], 'Ženske' => 'Ženske_24' [52], 'Moški' =>
+## 'Moški_25' [53], 'Ženske' => 'Ženske_25' [54], 'Moški' => 'Moški_26' [55],
+## 'Ženske' => 'Ženske_26' [56]
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in rbind(names(probs), probs_f): number of columns of result is not
+## a multiple of vector length (arg 1)
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: 13 parsing failures.
+## row # A tibble: 5 x 5 col     row col   expected   actual    file                  expected   <int> <chr> <chr>      <chr>     <chr>                 actual 1     1 <NA>  56 columns 1 columns 'podatki/tabela1.csv' file 2    20 <NA>  56 columns 1 columns 'podatki/tabela1.csv' row 3    39 <NA>  56 columns 1 columns 'podatki/tabela1.csv' col 4    40 <NA>  56 columns 1 columns 'podatki/tabela1.csv' expected 5    41 <NA>  56 columns 1 columns 'podatki/tabela1.csv'
+## ... ................. ... ........................................................ ........ ........................................................ ...... ........................................................ .... ........................................................ ... ........................................................ ... ........................................................ ........ ........................................................
+## See problems(...) for more details.
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Missing column names filled in: 'X1' [1], 'X2' [2]
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Duplicated column names deduplicated: 'Moški' => 'Moški_1' [5],
+## 'Ženske' => 'Ženske_1' [6], 'Moški' => 'Moški_2' [7], 'Ženske' =>
+## 'Ženske_2' [8], 'Moški' => 'Moški_3' [9], 'Ženske' => 'Ženske_3' [10],
+## 'Moški' => 'Moški_4' [11], 'Ženske' => 'Ženske_4' [12], 'Moški' =>
+## 'Moški_5' [13], 'Ženske' => 'Ženske_5' [14], 'Moški' => 'Moški_6' [15],
+## 'Ženske' => 'Ženske_6' [16], 'Moški' => 'Moški_7' [17], 'Ženske' =>
+## 'Ženske_7' [18], 'Moški' => 'Moški_8' [19], 'Ženske' => 'Ženske_8' [20],
+## 'Moški' => 'Moški_9' [21], 'Ženske' => 'Ženske_9' [22], 'Moški' =>
+## 'Moški_10' [23], 'Ženske' => 'Ženske_10' [24], 'Moški' => 'Moški_11' [25],
+## 'Ženske' => 'Ženske_11' [26], 'Moški' => 'Moški_12' [27], 'Ženske' =>
+## 'Ženske_12' [28], 'Moški' => 'Moški_13' [29], 'Ženske' => 'Ženske_13' [30],
+## 'Moški' => 'Moški_14' [31], 'Ženske' => 'Ženske_14' [32], 'Moški' =>
+## 'Moški_15' [33], 'Ženske' => 'Ženske_15' [34], 'Moški' => 'Moški_16' [35],
+## 'Ženske' => 'Ženske_16' [36], 'Moški' => 'Moški_17' [37], 'Ženske' =>
+## 'Ženske_17' [38], 'Moški' => 'Moški_18' [39], 'Ženske' => 'Ženske_18' [40],
+## 'Moški' => 'Moški_19' [41], 'Ženske' => 'Ženske_19' [42], 'Moški' =>
+## 'Moški_20' [43], 'Ženske' => 'Ženske_20' [44], 'Moški' => 'Moški_21' [45],
+## 'Ženske' => 'Ženske_21' [46]
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in rbind(names(probs), probs_f): number of columns of result is not
+## a multiple of vector length (arg 1)
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: 13 parsing failures.
+## row # A tibble: 5 x 5 col     row col   expected   actual    file                              expected   <int> <chr> <chr>      <chr>     <chr>                             actual 1     1 <NA>  46 columns 1 columns 'podatki/meddrzavne.selitve2.csv' file 2    38 <NA>  46 columns 1 columns 'podatki/meddrzavne.selitve2.csv' row 3    75 <NA>  46 columns 1 columns 'podatki/meddrzavne.selitve2.csv' col 4    76 <NA>  46 columns 1 columns 'podatki/meddrzavne.selitve2.csv' expected 5    77 <NA>  46 columns 1 columns 'podatki/meddrzavne.selitve2.csv'
+## ... ................. ... .................................................................... ........ .................................................................... ...... .................................................................... .... .................................................................... ... .................................................................... ... .................................................................... ........ ....................................................................
+## See problems(...) for more details.
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Missing column names filled in: 'X1' [1]
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Duplicated column names deduplicated: 'Priseljeni iz tujine -
+## Moški' => 'Priseljeni iz tujine - Moški_1' [6], 'Priseljeni iz tujine -
+## Ženske' => 'Priseljeni iz tujine - Ženske_1' [7], 'Odseljeni v tujino -
+## Moški' => 'Odseljeni v tujino - Moški_1' [8], 'Odseljeni v tujino - Ženske'
+## => 'Odseljeni v tujino - Ženske_1' [9], 'Priseljeni iz tujine - Moški'
+## => 'Priseljeni iz tujine - Moški_2' [10], 'Priseljeni iz tujine - Ženske'
+## => 'Priseljeni iz tujine - Ženske_2' [11], 'Odseljeni v tujino - Moški'
+## => 'Odseljeni v tujino - Moški_2' [12], 'Odseljeni v tujino - Ženske' =>
+## 'Odseljeni v tujino - Ženske_2' [13], 'Priseljeni iz tujine - Moški' =>
+## 'Priseljeni iz tujine - Moški_3' [14], 'Priseljeni iz tujine - Ženske'
+## => 'Priseljeni iz tujine - Ženske_3' [15], 'Odseljeni v tujino - Moški'
+## => 'Odseljeni v tujino - Moški_3' [16], 'Odseljeni v tujino - Ženske' =>
+## 'Odseljeni v tujino - Ženske_3' [17], 'Priseljeni iz tujine - Moški' =>
+## 'Priseljeni iz tujine - Moški_4' [18], 'Priseljeni iz tujine - Ženske'
+## => 'Priseljeni iz tujine - Ženske_4' [19], 'Odseljeni v tujino - Moški'
+## => 'Odseljeni v tujino - Moški_4' [20], 'Odseljeni v tujino - Ženske' =>
+## 'Odseljeni v tujino - Ženske_4' [21], 'Priseljeni iz tujine - Moški' =>
+## 'Priseljeni iz tujine - Moški_5' [22], 'Priseljeni iz tujine - Ženske'
+## => 'Priseljeni iz tujine - Ženske_5' [23], 'Odseljeni v tujino - Moški'
+## => 'Odseljeni v tujino - Moški_5' [24], 'Odseljeni v tujino - Ženske' =>
+## 'Odseljeni v tujino - Ženske_5' [25], 'Priseljeni iz tujine - Moški' =>
+## 'Priseljeni iz tujine - Moški_6' [26], 'Priseljeni iz tujine - Ženske'
+## => 'Priseljeni iz tujine - Ženske_6' [27], 'Odseljeni v tujino - Moški'
+## => 'Odseljeni v tujino - Moški_6' [28], 'Odseljeni v tujino - Ženske' =>
+## 'Odseljeni v tujino - Ženske_6' [29], 'Priseljeni iz tujine - Moški' =>
+## 'Priseljeni iz tujine - Moški_7' [30], 'Priseljeni iz tujine - Ženske'
+## => 'Priseljeni iz tujine - Ženske_7' [31], 'Odseljeni v tujino - Moški'
+## => 'Odseljeni v tujino - Moški_7' [32], 'Odseljeni v tujino - Ženske' =>
+## 'Odseljeni v tujino - Ženske_7' [33], 'Priseljeni iz tujine - Moški' =>
+## 'Priseljeni iz tujine - Moški_8' [34], 'Priseljeni iz tujine - Ženske'
+## => 'Priseljeni iz tujine - Ženske_8' [35], 'Odseljeni v tujino - Moški'
+## => 'Odseljeni v tujino - Moški_8' [36], 'Odseljeni v tujino - Ženske' =>
+## 'Odseljeni v tujino - Ženske_8' [37], 'Priseljeni iz tujine - Moški' =>
+## 'Priseljeni iz tujine - Moški_9' [38], 'Priseljeni iz tujine - Ženske'
+## => 'Priseljeni iz tujine - Ženske_9' [39], 'Odseljeni v tujino - Moški'
+## => 'Odseljeni v tujino - Moški_9' [40], 'Odseljeni v tujino - Ženske' =>
+## 'Odseljeni v tujino - Ženske_9' [41], 'Priseljeni iz tujine - Moški' =>
+## 'Priseljeni iz tujine - Moški_10' [42], 'Priseljeni iz tujine - Ženske'
+## => 'Priseljeni iz tujine - Ženske_10' [43], 'Odseljeni v tujino - Moški'
+## => 'Odseljeni v tujino - Moški_10' [44], 'Odseljeni v tujino - Ženske' =>
+## 'Odseljeni v tujino - Ženske_10' [45], 'Priseljeni iz tujine - Moški' =>
+## 'Priseljeni iz tujine - Moški_11' [46], 'Priseljeni iz tujine - Ženske'
+## => 'Priseljeni iz tujine - Ženske_11' [47], 'Odseljeni v tujino - Moški'
+## => 'Odseljeni v tujino - Moški_11' [48], 'Odseljeni v tujino - Ženske' =>
+## 'Odseljeni v tujino - Ženske_11' [49], 'Priseljeni iz tujine - Moški' =>
+## 'Priseljeni iz tujine - Moški_12' [50], 'Priseljeni iz tujine - Ženske'
+## => 'Priseljeni iz tujine - Ženske_12' [51], 'Odseljeni v tujino - Moški'
+## => 'Odseljeni v tujino - Moški_12' [52], 'Odseljeni v tujino - Ženske' =>
+## 'Odseljeni v tujino - Ženske_12' [53], 'Priseljeni iz tujine - Moški' =>
+## 'Priseljeni iz tujine - Moški_13' [54], 'Priseljeni iz tujine - Ženske'
+## => 'Priseljeni iz tujine - Ženske_13' [55], 'Odseljeni v tujino - Moški'
+## => 'Odseljeni v tujino - Moški_13' [56], 'Odseljeni v tujino - Ženske' =>
+## 'Odseljeni v tujino - Ženske_13' [57], 'Priseljeni iz tujine - Moški' =>
+## 'Priseljeni iz tujine - Moški_14' [58], 'Priseljeni iz tujine - Ženske'
+## => 'Priseljeni iz tujine - Ženske_14' [59], 'Odseljeni v tujino - Moški'
+## => 'Odseljeni v tujino - Moški_14' [60], 'Odseljeni v tujino - Ženske' =>
+## 'Odseljeni v tujino - Ženske_14' [61], 'Priseljeni iz tujine - Moški' =>
+## 'Priseljeni iz tujine - Moški_15' [62], 'Priseljeni iz tujine - Ženske'
+## => 'Priseljeni iz tujine - Ženske_15' [63], 'Odseljeni v tujino - Moški'
+## => 'Odseljeni v tujino - Moški_15' [64], 'Odseljeni v tujino - Ženske' =>
+## 'Odseljeni v tujino - Ženske_15' [65], 'Priseljeni iz tujine - Moški' =>
+## 'Priseljeni iz tujine - Moški_16' [66], 'Priseljeni iz tujine - Ženske'
+## => 'Priseljeni iz tujine - Ženske_16' [67], 'Odseljeni v tujino - Moški'
+## => 'Odseljeni v tujino - Moški_16' [68], 'Odseljeni v tujino - Ženske' =>
+## 'Odseljeni v tujino - Ženske_16' [69], 'Priseljeni iz tujine - Moški' =>
+## 'Priseljeni iz tujine - Moški_17' [70], 'Priseljeni iz tujine - Ženske'
+## => 'Priseljeni iz tujine - Ženske_17' [71], 'Odseljeni v tujino - Moški'
+## => 'Odseljeni v tujino - Moški_17' [72], 'Odseljeni v tujino - Ženske' =>
+## 'Odseljeni v tujino - Ženske_17' [73], 'Priseljeni iz tujine - Moški' =>
+## 'Priseljeni iz tujine - Moški_18' [74], 'Priseljeni iz tujine - Ženske'
+## => 'Priseljeni iz tujine - Ženske_18' [75], 'Odseljeni v tujino - Moški'
+## => 'Odseljeni v tujino - Moški_18' [76], 'Odseljeni v tujino - Ženske' =>
+## 'Odseljeni v tujino - Ženske_18' [77], 'Priseljeni iz tujine - Moški' =>
+## 'Priseljeni iz tujine - Moški_19' [78], 'Priseljeni iz tujine - Ženske'
+## => 'Priseljeni iz tujine - Ženske_19' [79], 'Odseljeni v tujino - Moški'
+## => 'Odseljeni v tujino - Moški_19' [80], 'Odseljeni v tujino - Ženske' =>
+## 'Odseljeni v tujino - Ženske_19' [81], 'Priseljeni iz tujine - Moški' =>
+## 'Priseljeni iz tujine - Moški_20' [82], 'Priseljeni iz tujine - Ženske'
+## => 'Priseljeni iz tujine - Ženske_20' [83], 'Odseljeni v tujino - Moški'
+## => 'Odseljeni v tujino - Moški_20' [84], 'Odseljeni v tujino - Ženske' =>
+## 'Odseljeni v tujino - Ženske_20' [85], 'Priseljeni iz tujine - Moški' =>
+## 'Priseljeni iz tujine - Moški_21' [86], 'Priseljeni iz tujine - Ženske'
+## => 'Priseljeni iz tujine - Ženske_21' [87], 'Odseljeni v tujino - Moški'
+## => 'Odseljeni v tujino - Moški_21' [88], 'Odseljeni v tujino - Ženske' =>
+## 'Odseljeni v tujino - Ženske_21' [89], 'Priseljeni iz tujine - Moški' =>
+## 'Priseljeni iz tujine - Moški_22' [90], 'Priseljeni iz tujine - Ženske'
+## => 'Priseljeni iz tujine - Ženske_22' [91], 'Odseljeni v tujino - Moški'
+## => 'Odseljeni v tujino - Moški_22' [92], 'Odseljeni v tujino - Ženske' =>
+## 'Odseljeni v tujino - Ženske_22' [93]
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Missing column names filled in: 'X1' [1], 'X2' [2], 'X3' [3],
+## 'X4' [4], 'X5' [5], 'X6' [6]
+
+## Warning: Missing column names filled in: 'X1' [1], 'X2' [2], 'X3' [3],
+## 'X4' [4], 'X5' [5], 'X6' [6]
+\end{verbatim}
+
+Uvozili smo podatke o občinah v obliki CSV s statističnega urada ter v
+obliki HTML z Wikipedije. Podatke imamo v dveh razpredelnicah v obliki
+\emph{tidy data}.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \texttt{druzine} - podatki o družinah za vsako občino
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{obcina} - spremenljivka: ime občine (neurejen faktor),
+\item
+  \texttt{velikost.druzine} - spremenljivka: število otrok v družini
+  (število: 1, 2, 3 ali 4, kjer zadnja vrednost pomeni 4 ali več),
+\item
+  \texttt{stevilo.druzin} - meritev: število družin z ustreznim številom
+  otrok v ustrezni občini (število).
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \texttt{obcine} - podatki o občinah
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{obcina} - spremenljivka: ime občine (neurejen faktor),
+\item
+  \texttt{povrsina} - meritev: površina občine v km\(^2\) (število),
+\item
+  \texttt{prebivalci} - meritev: prebivalstvo občine (število),
+\item
+  \texttt{gostota} - meritev: število prebivalcev na km\(^2\) (število),
+\item
+  \texttt{naselja} - meritev: število naselij v občini (število),
+\item
+  \texttt{ustanovitev} - meritev: leto ustanovitve občine (število),
+\item
+  \texttt{pokrajina} - meritev: pokrajina, ki ji občina pripada
+  (neurejen faktor),
+\item
+  \texttt{regija} - meritev: regija, ki ji občina pripada (neurejen
+  faktor),
+\item
+  \texttt{odcepitev} - meritev: podatki o občinah, od katerih se je
+  občina odcepila (besedilo).
+\end{itemize}
+
+\textbf{Opomba}: da bi razpredelnica \texttt{obcine} res bila v obliki
+\emph{tidy data}, bi morali odstraniti stolpec \texttt{gostota} (saj je
+izpeljan iz stolpcev \texttt{povrsina} in \texttt{prebivalci}), podatke
+o pokrajinah pa bi morali premakniti v drugo razpredelnico, saj nekatere
+občine pripadajo dvema pokrajinama. Podobno bi morali narediti tudi s
+stolpcem \texttt{odcepitev}.
+
+Spodnji graf prikazuje porazdelitev števila naselij v občinah.
+
+\begin{figure}
+
+{\centering \includegraphics{test_files/figure-latex/unnamed-chunk-1-1} 
+
+}
+
+\caption{Zemljevid povprečnega števila otrok v družini}\label{fig:unnamed-chunk-1}
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\section{Analiza in vizualizacija
+podatkov}\label{analiza-in-vizualizacija-podatkov}
+
+Spodnji zemljevid prikazuje povprečno velikost družine za vsako občino.
+
+\begin{verbatim}
+## Warning: Column `OB_UIME`/`obcina` joining factor and character vector,
+## coercing into character vector
+\end{verbatim}
+
+\begin{figure}
+
+{\centering \includegraphics{test_files/figure-latex/zemljevid-1} 
+
+}
+
+\caption{Zemljevid povprečnega števila otrok v družini}\label{fig:zemljevid}
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\begin{figure}
+
+{\centering \includegraphics{test_files/figure-latex/unnamed-chunk-2-1} 
+
+}
+
+\caption{Zemljevid povprečnega števila otrok v družini}\label{fig:unnamed-chunk-2}
+\end{figure}
+
+
+\end{document}

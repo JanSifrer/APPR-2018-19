@@ -84,6 +84,12 @@ ggplot() + geom_polygon(data=left_join(zemljevid, povprecja, by=c("OB_UIME"="obc
 ```
 
 ***
+```{r echo=FALSE, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
+ggplot(data=odseljeni.prebivalci %>% group_by(drzava, drzavljanstvo) %>% summarise(Stevilo=sum(stevilo)),
+       aes(x = drzava, y = Stevilo, fill = drzavljanstvo)) +
+  geom_bar(stat = 'identity', position = 'dodge') + ggtitle("Odseljeni prebivalci glede na drzavljanstvo") +
+  coord_flip()
+```
 
 # Napredna analiza podatkov
 
