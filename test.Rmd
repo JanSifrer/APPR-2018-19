@@ -77,13 +77,12 @@ source("vizualizacija/moja-vizualizacija.r", encoding="UTF-8")
 
 Spodnji zemljevid prikazuje povprečno velikost družine za vsako občino.
 
-```{r zemljevid, echo=FALSE, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
+```{r, echo=FALSE, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
 ggplot() + geom_polygon(data=left_join(zemljevid, razlika.obcine, by=c("OB_UIME"="obcina")),
                         aes(x=long, y=lat, group=group, fill=razlika)) +
   ggtitle("Razlika priseljenih in odseljenih") + xlab("") + ylab("") +
   guides(fill=guide_colorbar(title="Število"))
 ```
-
 ***
 ```{r echo=FALSE, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
 ggplot(data=priseljeni.prebivalci %>% group_by(drzava, izobrazba) %>% summarise(Stevilo=sum(stevilo)),
@@ -92,3 +91,6 @@ ggplot(data=priseljeni.prebivalci %>% group_by(drzava, izobrazba) %>% summarise(
   coord_flip()
 ```
 
+```{r echo=FALSE, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
+plot(graf_bdp)
+```

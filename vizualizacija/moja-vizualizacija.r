@@ -14,9 +14,10 @@ funkcija.bdp <- function() {
   
 graf_bdp <- ggplot(data = funkcija.bdp(), mapping = aes(x=reorder(Drzava, Povprecje.bdp) ,y=Povprecje.bdp,
                                                             fill=Drzava)) + 
-  geom_bar(stat = 'identity', position = 'dodge', show.legend = FALSE)
+  geom_bar(stat = 'identity', position = 'dodge', show.legend = FALSE) + coord_flip()
 
-#plot(graf_bdp) + coord_flip()
+#plot(graf_bdp)
+
 
 #Probam sešteti za vsako državo koliko se je določenih državljanov preselilo vanjo. To bom kasneje probal še
 #narisati na zemljevid Evrope.
