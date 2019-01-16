@@ -160,7 +160,6 @@ ggplot(data=meddrzavne.selitve.osnovni %>%
 Spodnji zemljevid prikazuje povprečno velikost družine za vsako občino.
 
 ```{r, echo=FALSE, fig.align='center', fig.cap='Zemljevid občin Slovenije'}
-library(viridis)
 ggplot() + geom_polygon(data=left_join(zemljevid, razlika.obcine, by=c("OB_UIME"="obcina")),
                         aes(x=long, y=lat, group=group, fill=razlika)) +
   ggtitle("Razlika priseljenih in odseljenih deljena s številom prebivalcev") + xlab("") + ylab("") +
