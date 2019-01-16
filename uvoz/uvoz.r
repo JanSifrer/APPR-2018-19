@@ -20,7 +20,9 @@ meddrzavne.selitve.vsi <- uvozi.meddrzavne.selitve.vsi()
 
 
 #Funkcija za uvoz osnovnih podatkov o meddržavnih selitvah
-
+starosti <- c("0-4 let", "5-9 let", "10-14 let", "15-19 let", "20-24 let", "25-29 let",
+              "30-34 let", "35-39 let", "40-44 let", "45-49 let", "50-54 let", "55-59 let",
+              "60-64 let", "65-69 let", "70-74 let", "75-79 let", "80-84 let", "85 + let")
 uvozi.meddrzavne.selitve.osnovni <- function() {
   data <- read_csv2("podatki/tabela1.csv", skip=3, na=c("", "..."),
                     locale=locale(encoding="windows-1250")) %>% fill(1) %>% drop_na(2)
@@ -29,7 +31,7 @@ uvozi.meddrzavne.selitve.osnovni <- function() {
                       matrix(rep(1991:2017, 2), nrow=2, byrow=TRUE), sep="_"))
   data <- melt(data, id.vars=c("vrsta", "starost"), value.name="stevilo") %>%
     separate(variable, c("spol", "leto"), sep="_") %>%
-    mutate(leto=parse_number(leto))
+    mutate(leto=parse_number(leto), starost=parse_factor(starost, starosti, ordered=TRUE))
   return(data)
 }
 meddrzavne.selitve.osnovni <- uvozi.meddrzavne.selitve.osnovni()
@@ -109,3 +111,32 @@ uvozi.bdp <- function() {
   data <- data[,-4]
 }
 bdp <- uvozi.bdp()
+
+
+#Sposodil sem si že dani primer uvoza, kajti na SISTATu nisem našel podatka
+#o številu prebivalcev na občino, so samo polletni in od 2008 dalje
+
+uvozi.obcine <- function() {
+  link <- "http://sl.wikipedia.org/wiki/Seznam_ob%C4%8Din_v_Sloveniji"
+  stran <- html_session(link) %>% read_html()
+  tabela <- stran %>% html_nodes(xpath="//table[@class='wikitable sortable']") %>%
+    .[[1]] %>% html_table(dec=",")
+  for (i in 1:ncol(tabela)) {
+    if (is.character(tabela[[i]])) {
+      Encoding(tabela[[i]]) <- "UTF-8"
+    }
+  }
+  colnames(tabela) <- c("obcina", "povrsina", "prebivalci", "gostota", "naselja",
+                        "ustanovitev", "pokrajina", "regija", "odcepitev")
+  tabela$obcina <- gsub("Slovenskih", "Slov.", tabela$obcina)
+  tabela$obcina[tabela$obcina == "Kanal ob Soči"] <- "Kanal"
+  tabela$obcina[tabela$obcina == "Loški potok"] <- "Loški Potok"
+  for (col in c("povrsina", "prebivalci", "gostota", "naselja", "ustanovitev")) {
+    tabela[[col]] <- parse_number(tabela[[col]], na="-", locale=sl)
+  }
+  for (col in c("obcina", "pokrajina", "regija")) {
+    tabela[[col]] <- factor(tabela[[col]])
+  }
+  return(tabela)
+}
+obcine <- uvozi.obcine()
