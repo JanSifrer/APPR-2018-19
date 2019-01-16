@@ -33,3 +33,9 @@ ggplot(europe, aes(x=long, y=lat, group=group, fill=NAME)) +
   theme(legend.position="none")
 
 
+# ggplot(data=odseljeni.prebivalci %>% group_by(drzava, drzavljanstvo) %>% summarise(Stevilo=sum(stevilo)),
+#        aes(x = drzava, y = Stevilo, fill = drzava)) +
+#   geom_bar(stat = 'identity', position = 'dodge', show.legend = FALSE) +
+#   facet_grid(~ drzavljanstvo) + coord_flip()
+
+
