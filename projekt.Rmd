@@ -7,6 +7,7 @@ output:
     includes:
       in_header: lib/styles.sty
     latex_engine: xelatex
+runtime: shiny
 ---
 
 ```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
@@ -80,16 +81,9 @@ Uvozil sem podatke o meddržavnih selitvah, podatke o tem iz katerih občin so s
   - `Drzava` - spremenljivka: pove nam za katero državo merimo BDP,
   - `BDP` - meritev: BDP (številka).
   
-7. `obcine` - podatki o občinah
+7. `prebivalstvo` - podatki o številu prebivalcev po občinah
   - `obcina` - spremenljivka: ime občine (neurejen faktor),
-  - `povrsina` - meritev: površina občine v km$^2$ (število),
-  - `prebivalci` - meritev: prebivalstvo občine (število),
-  - `gostota` - meritev: število prebivalcev na km$^2$ (število),
-  - `naselja` - meritev: število naselij v občini (število),
-  - `ustanovitev` - meritev: leto ustanovitve občine (število),
-  - `pokrajina` - meritev: pokrajina, ki ji občina pripada (neurejen faktor),
-  - `regija` - meritev: regija, ki ji občina pripada (neurejen faktor),
-  - `odcepitev` - meritev: podatki o občinah, od katerih se je občina odcepila (besedilo).
+  - `stevilo` - meritev: prebivalstvo občine (število).
 
 
 **Opomba**: da bi razpredelnica `bdp` res bila v obliki *tidy data* bi moral odsraniti neznane vrednosti v stolpcu `BDP` (določene države za kakšno leto nimajo izmerjenega BDP).
@@ -171,6 +165,14 @@ ggplot() + geom_polygon(data=left_join(zemljevid, razlika.obcine,
 ```
 ***
 
-```{r echo=FALSE, fig.align='center', fig.cap='Zemljevid povprečnega števila otrok v družini'}
-# plot(graf_bdp)
+# Napredna analiza podatkov
+
+```{r analiza, echo=FALSE, message=FALSE}
+source("analiza/analiza.r", encoding="UTF-8")
+```
+
+
+# Shiny
+```{r shiny, echo=FALSE}
+shinyAppDir("shiny", options=list(width="100%", height=600))
 ```

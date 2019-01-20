@@ -5,13 +5,10 @@ shinyUI(fluidPage(
   titlePanel("Slovenske občine"),
   
   tabsetPanel(
-      tabPanel("Velikost družine",
-               DT::dataTableOutput("druzine")),
-      
-      tabPanel("Število naselij",
+      tabPanel("Zemljevid Slovenije",
                sidebarPanel(
-                  uiOutput("pokrajine")
+                  uiOutput("stevilo")
                 ),
-               mainPanel(plotOutput("naselja")))
+               mainPanel("stevilo"))
     )
 ))
