@@ -100,9 +100,9 @@ Spodnji graf prikazuje število izseljenih in priseljenih ljudi po državah. Hkr
 ```{r echo=FALSE, fig.align='center', fig.cap='Graf 1: Države selitev'}
 ggplot(data=meddrzavne.selitve.drzavljanstvo %>% group_by(vrsta, drzava)
                            %>% summarise(Stevilo=sum(stevilo)), 
-                           mapping = aes(x=drzava, y=Stevilo, fill=vrsta)) + 
+                           mapping = aes(x=reorder(drzava, Stevilo), y=Stevilo, fill=vrsta)) + 
   geom_bar(stat = 'identity', position = 'dodge') + xlab("Država") + ylab("Število") +
-  ggtitle("Graf števila izseljenih in priseljenih po državah") + coord_flip()
+  ggtitle("Graf števila odseljenih in priseljenih po državah") + coord_flip()
 ```
 
 ***
@@ -157,13 +157,17 @@ ggplot(data=meddrzavne.selitve.osnovni %>%
 ```
 
 *****************
-Spodnji zemljevid prikazuje povprečno velikost družine za vsako občino.
+Spodnji zemljevid prikazuje razliko med priseljenimi in izseljenimi osebami.
 
-```{r, echo=FALSE, fig.align='center', fig.cap='Zemljevid občin Slovenije'}
-ggplot() + geom_polygon(data=left_join(zemljevid, razlika.obcine, by=c("OB_UIME"="obcina")),
-                        aes(x=long, y=lat, group=group, fill=razlika)) +
-  ggtitle("Razlika priseljenih in odseljenih deljena s številom prebivalcev") + xlab("") + ylab("") +
-  guides(fill=guide_colorbar(title="Število"))
+```{r, echo=FALSE, fig.align='center', fig.cap='Zemljevid 1: Selitveni prirast'}
+ggplot() + geom_polygon(data=left_join(zemljevid, razlika.obcine,
+                                       by=c("OB_UIME"="obcina")),
+                        aes(x=long, y=lat, group=group,
+                            fill=factor(round(razlika+0.05, 1)))) +
+  ggtitle("Razlika priseljenih in odseljenih deljena s številom prebivalcev") +
+  xlab("") + ylab("") +
+  scale_fill_discrete(guide=guide_legend(title="Število"),
+                      labels=. %>% { paste({parse_number(.) %>% { . - 0.1 }}, "-", .) })
 ```
 ***
 
