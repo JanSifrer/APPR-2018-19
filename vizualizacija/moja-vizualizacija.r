@@ -1,7 +1,7 @@
 #Probam narediti nekaj grafov:
 graf.meddrzavne.selitve <- ggplot(data=meddrzavne.selitve.drzavljanstvo %>% group_by(vrsta, drzava)
                            %>% summarise(Stevilo=sum(stevilo)), 
-                           mapping = aes(x=drzava, y=Stevilo, fill=vrsta)) + 
+                           mapping = aes(x=reorder(drzava, Stevilo), y=Stevilo, fill=vrsta)) + 
   geom_bar(stat = 'identity', position = 'dodge') + xlab("Država") + ylab("Število") +
   ggtitle("Graf števila odseljenih in priseljenih po državah") + coord_flip()
 
@@ -71,7 +71,7 @@ odseljeni.obcine[["obcina"]] <- factor(odseljeni.obcine[["obcina"]]) #rabim za z
 priseljeni.obcine <- selitveno.gibanje %>% filter(vrsta == "Priseljeni iz tujine") %>% 
                               group_by(obcina) %>% summarise(vsota=sum(stevilo))
 razlika.obcine <- merge(odseljeni.obcine, priseljeni.obcine, by="obcina")
-razlika.obcine["razlika"] <- (priseljeni.obcine$vsota - odseljeni.obcine$vsota)/obcine$prebivalci
+razlika.obcine["razlika"] <- (priseljeni.obcine$vsota - odseljeni.obcine$vsota)/prebivalstvo$stevilo
 
 
 # ggplot() + geom_polygon(data=left_join(zemljevid, razlika.obcine, by=c("OB_UIME"="obcina")),
@@ -86,5 +86,5 @@ zemljevid <- uvozi.zemljevid("http://baza.fmf.uni-lj.si/OB.zip", "OB",
                              pot.zemljevida="OB", encoding="Windows-1250")
 levels(zemljevid$OB_UIME) <- levels(zemljevid$OB_UIME) %>%
 { gsub("Slovenskih", "Slov.", .) } %>% { gsub("-", " - ", .) }
-zemljevid$OB_UIME <- factor(zemljevid$OB_UIME, levels=levels(odseljeni.obcine$obcina))
+zemljevid$OB_UIME <- factor(zemljevid$OB_UIME, levels=levels(prebivalstvo$obcina))
 zemljevid <- fortify(zemljevid)

@@ -1,0 +1,248 @@
+Prebivalstvo po: SPOL, OBÈINE, POLLETJE , STAROST;;
+;;
+ ; ;2015H1
+ ; ;Starost - SKUPAJ
+Spol - SKUPAJ;;
+ ;Ajdovšèina;18959
+ ;Ankaran;3219
+ ;Apaèe;3591
+ ;Beltinci;8264
+ ;Benedikt;2461
+ ;Bistrica ob Sotli;1382
+ ;Bled;8127
+ ;Bloke;1545
+ ;Bohinj;5146
+ ;Borovnica;4250
+ ;Bovec;3134
+ ;Braslovèe;5447
+ ;Brda;5662
+ ;Brezovica;11884
+ ;Brežice;24184
+ ;Cankova;1834
+ ;Celje;48773
+ ;Cerklje na Gorenjskem;7364
+ ;Cerknica;11387
+ ;Cerkno;4687
+ ;Cerkvenjak;2058
+ ;Cirkulane;2339
+ ;Èrenšovci;4016
+ ;Èrna na Koroškem;3362
+ ;Èrnomelj;14591
+ ;Destrnik;2564
+ ;Divaèa;3953
+ ;Dobje;994
+ ;Dobrepolje;3936
+ ;Dobrna;2164
+ ;Dobrova - Polhov Gradec;7573
+ ;Dobrovnik;1280
+ ;Dol pri Ljubljani;5861
+ ;Dolenjske Toplice;3388
+ ;Domžale;35039
+ ;Dornava;2916
+ ;Dravograd;8879
+ ;Duplek;6776
+ ;Gorenja vas - Poljane;7380
+ ;Gorišnica;3980
+ ;Gorje;2815
+ ;Gornja Radgona;8504
+ ;Gornji Grad;2573
+ ;Gornji Petrovci;2078
+ ;Grad;2192
+ ;Grosuplje;19977
+ ;Hajdina;3740
+ ;Hoèe - Slivnica;11188
+ ;Hodoš;367
+ ;Horjul;2950
+ ;Hrastnik;9440
+ ;Hrpelje - Kozina;4325
+ ;Idrija;11926
+ ;Ig;7135
+ ;Ilirska Bistrica;13719
+ ;Ivanèna Gorica;16141
+ ;Izola;15867
+ ;Jesenice;21042
+ ;Jezersko;645
+ ;Juršinci;2364
+ ;Kamnik;29431
+ ;Kanal;5502
+ ;Kidrièevo;6515
+ ;Kobarid;4135
+ ;Kobilje;591
+ ;Koèevje;16075
+ ;Komen;3560
+ ;Komenda;5932
+ ;Koper;50902
+ ;Kostanjevica na Krki;2455
+ ;Kostel;646
+ ;Kozje;3095
+ ;Kranj;55857
+ ;Kranjska Gora;5305
+ ;Križevci;3693
+ ;Krško;25835
+ ;Kungota;4804
+ ;Kuzma;1603
+ ;Laško;13260
+ ;Lenart;8236
+ ;Lendava;10575
+ ;Litija;15064
+ ;Ljubljana;287218
+ ;Ljubno;2601
+ ;Ljutomer;11521
+ ;Log - Dragomer;3636
+ ;Logatec;13763
+ ;Loška dolina;3866
+ ;Loški Potok;1878
+ ;Lovrenc na Pohorju;3116
+ ;Luèe;1481
+ ;Lukovica;5674
+ ;Majšperk;3952
+ ;Makole;2036
+ ;Maribor;112325
+ ;Markovci;3989
+ ;Medvode;15963
+ ;Mengeš;7630
+ ;Metlika;8400
+ ;Mežica;3623
+ ;Miklavž na Dravskem polju;6460
+ ;Miren - Kostanjevica;4826
+ ;Mirna;2523
+ ;Mirna Peè;2873
+ ;Mislinja;4593
+ ;Mokronog - Trebelno;3029
+ ;Moravèe;5211
+ ;Moravske Toplice;5853
+ ;Mozirje;4067
+ ;Murska Sobota;18973
+ ;Muta;3399
+ ;Naklo;5299
+ ;Nazarje;2581
+ ;Nova Gorica;31787
+ ;Novo mesto;36371
+ ;Odranci;1651
+ ;Oplotnica;4046
+ ;Ormož;12408
+ ;Osilnica;374
+ ;Pesnica;7516
+ ;Piran;17857
+ ;Pivka;6039
+ ;Podèetrtek;3318
+ ;Podlehnik;1814
+ ;Podvelka;2400
+ ;Poljèane;4453
+ ;Polzela;6084
+ ;Postojna;15982
+ ;Prebold;4999
+ ;Preddvor;3579
+ ;Prevalje;6780
+ ;Ptuj;23153
+ ;Puconci;6014
+ ;Raèe - Fram;7074
+ ;Radeèe;4282
+ ;Radenci;5199
+ ;Radlje ob Dravi;6256
+ ;Radovljica;18892
+ ;Ravne na Koroškem;11343
+ ;Razkrižje;1287
+ ;Reèica ob Savinji;2350
+ ;Renèe - Vogrsko;4297
+ ;Ribnica;9321
+ ;Ribnica na Pohorju;1175
+ ;Rogaška Slatina;11026
+ ;Rogašovci;3134
+ ;Rogatec;3097
+ ;Ruše;7163
+ ;Selnica ob Dravi;4521
+ ;Semiè;3799
+ ;Sevnica;17481
+ ;Sežana;13090
+ ;Slovenj Gradec;16785
+ ;Slovenska Bistrica;25373
+ ;Slovenske Konjice;14598
+ ;Sodražica;2190
+ ;Solèava;504
+ ;Središèe ob Dravi;2039
+ ;Starše;4065
+ ;Straža;3807
+ ;Sveta Ana;2325
+ ;Sveta Trojica v Slov. goricah;2052
+ ;Sveti Andraž v Slov. goricah;1164
+ ;Sveti Jurij ob Šèavnici;2887
+ ;Sveti Jurij v Slov. goricah;2083
+ ;Sveti Tomaž;2052
+ ;Šalovci;1459
+ ;Šempeter - Vrtojba;6280
+ ;Šenèur;8554
+ ;Šentilj;8391
+ ;Šentjernej;6990
+ ;Šentjur;19004
+ ;Šentrupert;2900
+ ;Škocjan;3224
+ ;Škofja Loka;22912
+ ;Škofljica;10278
+ ;Šmarje pri Jelšah;10184
+ ;Šmarješke Toplice;3265
+ ;Šmartno ob Paki;3228
+ ;Šmartno pri Litiji;5498
+ ;Šoštanj;8710
+ ;Štore;4263
+ ;Tabor;1655
+ ;Tišina;4084
+ ;Tolmin;11385
+ ;Trbovlje;16490
+ ;Trebnje;12181
+ ;Trnovska vas;1316
+ ;Trzin;3858
+ ;Tržiè;14994
+ ;Turnišèe;3286
+ ;Velenje;32751
+ ;Velika Polana;1439
+ ;Velike Lašèe;4188
+ ;Veržej;1295
+ ;Videm;5478
+ ;Vipava;5608
+ ;Vitanje;2254
+ ;Vodice;4777
+ ;Vojnik;8668
+ ;Vransko;2603
+ ;Vrhnika;16715
+ ;Vuzenica;2708
+ ;Zagorje ob Savi;16717
+ ;Zavrè;1727
+ ;Zreèe;6379
+ ;Žalec;21264
+ ;Železniki;6742
+ ;Žetale;1324
+ ;Žiri;4827
+ ;Žirovnica;4370
+ ;Žužemberk;4548
+;;
+Od objave podatkov o prebivalstvu Slovenije po 1.1. 2008 uporabljamo ;;
+na Statistiènem uradu Republike Slovenije (seznam ;;
+HREF=http://www.stat.si/StatWeb/glavnanavigacija/podatki/prikazistaro-;;
+novico?IdNovice=2319 TARGET=_blank) spremenjeno statistièno ;;
+definicijo prebivalstva. To pomeni prelom v èasovni vrsti podatkov, ;;
+zato podatki po tej definiciji, torej podatki od sredine leta 2008 ;;
+dalje, niso neposredno primerljivi s podatki za predhodna stanja. ;;
+ ;;
+Vir: Statistièni urad Republike Slovenije.;;
+;;
+Povezane vsebine: ;;
+- (seznam HREF=http://www.stat.si/StatWeb/File/DocSysFile/7808 ;;
+target=_blank) Metodološka pojasnila ;;
+;;
+Podatki so teritorialno razvršèeni po uredbi o Standardni ;;
+klasifikaciji teritorialnih enot ((seznam ;;
+HREF=http://www.stat.si/StatWeb/glavnanavigacija/metode-in-klasifikac-;;
+ije/klasifikacije TARGET=_blank) opis in pojasnila), raven SKTE 5. ;;
+Podatki o spremembah posameznih obèin so dostopni na (seznam ;;
+HREF=http://www.stat.si/StatWeb/glavnanavigacija/metode-in-klasifikac-;;
+ije/klasifikacije/spremembe-obmocij-obcin TARGET=_blank) povezavi. V ;;
+Seznamu obèin s spremembami obmoèij obèin od leta 1995 dalje je ;;
+opisana vrsta spremembe, naveden je datum, s katerim je opisana ;;
+teritorialna sprememba upoštevana pri teritorialnem razvršèanju enot ;;
+za statistiène namene ter naveden Uradni list, v katerem so bile ;;
+objavljene omenjene teritorialne opombe. V seznamu obèin je navedeno ;;
+zadnje veljavno stanje imen obèin.;;
+;;
+H1 je po stanju 1. 1. ;;
+H2 je po stanju 1. 7.;;
