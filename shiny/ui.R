@@ -1,14 +1,12 @@
 library(shiny)
 
-shinyUI(fluidPage(
-  
-  titlePanel("Slovenske občine"),
-  
-  tabsetPanel(
-      tabPanel("Zemljevid Slovenije",
-               sidebarPanel(
-                  uiOutput("stevilo")
-                ),
-               mainPanel("stevilo"))
-    )
-))
+pageWithSidebar(
+  headerPanel('Razrezana Slovenija :D'),
+  sidebarPanel(
+    sliderInput(inputId="num", label="izberi število",
+                value=5, min=1, max=10)
+  ),
+  mainPanel(
+    plotOutput("Yolo")
+  )
+)
