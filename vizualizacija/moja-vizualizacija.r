@@ -72,7 +72,8 @@ priseljeni.obcine <- selitveno.gibanje %>% filter(vrsta == "Priseljeni iz tujine
                               group_by(obcina) %>% summarise(vsota=sum(stevilo))
 razlika.obcine <- merge(odseljeni.obcine, priseljeni.obcine, by="obcina")
 razlika.obcine["razlika"] <- (priseljeni.obcine$vsota - odseljeni.obcine$vsota)/prebivalstvo$stevilo
-
+razlika.obcine$vsota.y <- (priseljeni.obcine$vsota/prebivalstvo$stevilo)
+razlika.obcine$vsota.x <- (odseljeni.obcine$vsota/prebivalstvo$stevilo)
 
 # ggplot() + geom_polygon(data=left_join(zemljevid, razlika.obcine, by=c("OB_UIME"="obcina")),
 #                         aes(x=long, y=lat, group=group, fill=razlika)) +
