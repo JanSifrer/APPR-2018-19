@@ -91,7 +91,7 @@ Uvozil sem podatke o meddržavnih selitvah, podatke o tem iz katerih občin so s
 
 Spodnji graf prikazuje število izseljenih in priseljenih ljudi po državah. Hkrati pa tudi prikazuje da je Slovenija glede odseljevanja na prvem mestu, glede izseljevanja pa na tretjem mestu.
 
-```{r echo=FALSE, fig.align='center', fig.cap='Graf 1: Države selitev'}
+```{r graf 1, echo=FALSE, fig.align='center', fig.cap='Graf 1: Države selitev'}
 ggplot(data=meddrzavne.selitve.drzavljanstvo %>% group_by(vrsta, drzava)
                            %>% summarise(Stevilo=sum(stevilo)), 
                            mapping = aes(x=reorder(drzava, Stevilo), y=Stevilo, fill=vrsta)) + 
@@ -108,7 +108,7 @@ source("vizualizacija/moja-vizualizacija.r", encoding="UTF-8")
 ```
 Kot sem že omenil, je Slovenija glede preseljevanja na samem vrhu. In postavi se logično vprašanje: Ali je to v redu, ali ne?
 Po mojih podatkih je razvidno da izseljevanje iz Slovenije ni nič kaj koristno za našo državo, in sicer zato, ker se največ ljudi izseli med 20 in 34 letom starosti. To pomeni da se v naši državi izobražuje, nato pa zapusti našo državo, in začne svoje znanje prodajati v drugi državi.
-```{r, echo=FALSE, fig.align='center', fig.cap='graf 2: Izseljeni po starosti'}
+```{r graf 2, echo=FALSE, fig.align='center', fig.cap='graf 2: Izseljeni po starosti'}
 ggplot(data=meddrzavne.selitve.osnovni %>% 
                                               filter(vrsta=="Odseljeni v tujino") %>% 
                                        group_by(spol, starost, spol) %>% 
@@ -118,19 +118,19 @@ ggplot(data=meddrzavne.selitve.osnovni %>%
   xlab("Starost") + ylab("Število")+ ggtitle("Graf izseljenih Slovencev po letih") + coord_flip()
 ```
 
-```{r, echo=FALSE, fig.align='center',  fig.cap='Graf 3: Izseljeni po izobrazbi'}
+```{r graf 3, echo=FALSE, fig.align='center',  fig.cap='Graf 3: Izseljeni po izobrazbi'}
 ggplot(data=odseljeni.prebivalci %>% group_by(drzava, izobrazba) %>% summarise(Stevilo=sum(stevilo)),
                                      aes(x = drzava, y = Stevilo, fill = izobrazba)) +
   geom_bar(stat = 'identity', position = 'dodge') +
   xlab("Država") + ylab("Število") +
-  ggtitle("Odseljeni prebivalci glede na izobrazbo") +
+  ggtitle("Izseljeni prebivalci glede na izobrazbo") +
   coord_flip()
 ```
 ***
 Vidimo da se je iz Slovenije res izselilo veliko ljudi z višješolsko oz. visokošolsko izobrazbo, malo več je bilo tistih s srednješolsko izobrazbo, najmanj pa je ljudi z osnovnošolskih izobrazbo.
 Ravno nasprotno pa velja za priseljence. V spodnjih dveh grafih lahko vidimo, da se je največ ljudi priselilo s srednješolsko izobrazbo, sledijo pa jim osebe z osnovnošolsko ali manjšo izobrazbo. Podobnost pa lahko vidimo pri starosti preseljevanja, za kar pa tudi obstaja logična razlaga - v teh letih ljudje ravno iščejo zaposlitev, in če v tuji državi najdeš boljšo plačo za podobno delo, se lažje sedaj preseliš, kot pa potem ko boš imel enkrat družino. Če se za hip vrnemo na Graf 1, lahko sklepamo, da nekakšno tako razmišljanje  velja predvsem v Bosni in Hercegovini. Kajti ravno ta država je prva v številu izseljenih ljudi, vsi pa tudi vemo da je življenjski standard  v BIH nekoliko nižji kot drugje v Evropi.
 
-```{r, echo=FALSE, fig.align='center', fig.cap='Graf 4: Priseljeni po letih'}
+```{r graf 4, echo=FALSE, fig.align='center', fig.cap='Graf 4: Priseljeni po letih'}
 ggplot(data=priseljeni.prebivalci %>% group_by(drzava, izobrazba) %>% summarise(Stevilo=sum(stevilo)),
        aes(x = drzava, y = Stevilo, fill = izobrazba)) +
   geom_bar(stat = 'identity', position = 'dodge') +
@@ -139,7 +139,7 @@ ggplot(data=priseljeni.prebivalci %>% group_by(drzava, izobrazba) %>% summarise(
   coord_flip()
 ```
 
-```{r, echo=FALSE, fig.align='center', fig.cap='Graf 5: Priseljeni po izobrazbi'}
+```{r graf 5, echo=FALSE, fig.align='center', fig.cap='Graf 5: Priseljeni po izobrazbi'}
 ggplot(data=meddrzavne.selitve.osnovni %>% 
                                                filter(vrsta=="Priseljeni iz tujine") %>% 
                                                  group_by(spol, starost) %>% 
@@ -150,18 +150,23 @@ ggplot(data=meddrzavne.selitve.osnovni %>%
 
 ```
 
-*****************
-Spodnji zemljevid prikazuje razliko med priseljenimi in izseljenimi osebami.
+***
+##Selitveni prirast
+Sedaj pa si še poglejmo selitve Slovencev po občinah. Ampak ker iz številk samih ne moremo videti prav dosti, sem se odločil, da bom to najlažje pokazal s selitvenim prirastom, ki je torej razlika med priseljenimi ter izseljenimi prebivalci. Selitveni prirast pa sem še delil s 100, torej so rezultati podani v procentih. 
+Opazimo lahko, da proti severozahodu selitveni narast upada. Najvišji je nekako na Primorskem, najnižji pa na Štajerskem.
 
-```{r, echo=FALSE, fig.align='center', fig.cap='Zemljevid 1: Selitveni prirast'}
+
+```{r zemljevid 1, echo=FALSE, fig.align='center', fig.cap='Zemljevid 1: Selitveni prirast'}
 ggplot() + geom_polygon(data=left_join(zemljevid, razlika.obcine,
                                        by=c("OB_UIME"="obcina")),
                         aes(x=long, y=lat, group=group,
                             fill=factor(round(razlika+0.05, 1)))) +
-  ggtitle("Razlika priseljenih in odseljenih deljena s številom prebivalcev") +
+  ggtitle("Razlika priseljenih in izseljenih deljena s številom prebivalcev") +
   xlab("") + ylab("") +
   scale_fill_discrete(guide=guide_legend(title="Število"),
-                      labels=. %>% { paste({parse_number(.) %>% { . - 0.1 }}, "-", .) })
+                      labels=. %>% { paste({parse_number(.) %>% { . - 0.1 }}, "-",.)
+})
+
 ```
 ***
 
