@@ -171,8 +171,8 @@ ggplot() + geom_polygon(data=left_join(zemljevid, razlika.obcine,
 source("analiza/analiza.r", encoding="UTF-8")
 ```
 
-```{r}
-zemljevid.slovenije(5)
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+meddrzavni.priseljeni()
 ```
 
 # Shiny
