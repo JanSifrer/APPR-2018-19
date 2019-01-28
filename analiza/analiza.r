@@ -36,15 +36,15 @@ meddrzavni.priseljeni <- function() {
 
 
 #Brez veze... nič se ne vidi.
-library(ggplot2)
-library(plotly)
-library(gapminder)
+#library(ggplot2)
+#library(plotly)
+#library(gapminder)
 
-p <- meddrzavne.selitve.vsi %>%
-  filter(starost != "Starostne skupine - SKUPAJ" & starost != "Povprečna starost") %>%
-  filter(spol=="Spol - SKUPAJ") %>%
-  ggplot( aes(stevilo, leto, size = stevilo, color=starost)) +
-  geom_point() +
-  theme_bw()
-
-ggplotly(p)
+#p <- meddrzavne.selitve.vsi %>%
+#   filter(starost != "Starostne skupine - SKUPAJ" & starost != "Povprečna starost") %>%
+#   filter(spol=="Spol - SKUPAJ") %>%
+#   ggplot( aes(stevilo, leto, size = stevilo, color=starost)) +
+#   geom_point() +
+#   theme_bw()
+# 
+# ggplotly(p)
