@@ -32,7 +32,23 @@ meddrzavni.priseljeni <- function() {
     dySeries("V1", label = "Število priseljenih")
 }
 
-
+graf.obcin <- function(ime){
+  zenske <- selitveno.gibanje %>% filter(vrsta=="Priseljeni iz tujine" &
+                                           obcina==ime & spol=="Ženske")
+  moski <- selitveno.gibanje %>% filter(vrsta=="Priseljeni iz tujine" &
+                                          obcina==ime & spol=="Moški")
+  moski$stevilo <- moski$stevilo + zenske$stevilo
+  don<-xts(x = moski$stevilo, order.by=as.yearqtr.default(moski$leto))
+  dygraph(don) %>%
+    dyOptions(labelsUTC = TRUE, fillGraph=TRUE, fillAlpha=0.1, 
+              drawGrid = FALSE, colors="#D8AE5A") %>%
+    dyRangeSelector() %>%
+    dyCrosshair(direction = "vertical") %>%
+    dyHighlight(highlightCircleSize = 5, highlightSeriesBackgroundAlpha = 0.2, 
+                hideOnMouseOut = FALSE)  %>%
+    dyRoller(rollPeriod = 1) %>%
+    dySeries("V1", label = "Število priseljenih")
+}
 
 
 #Brez veze... nič se ne vidi.
