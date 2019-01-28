@@ -5,12 +5,12 @@ shinyUI(fluidPage(
   titlePanel("Slovenske občine"),
   
   tabsetPanel(
-    tabPanel("Število priseljenih po letih",
+    tabPanel("Število priseljenih po občinah",
              sidebarPanel(
               selectInput("obcina", "Izberi občino", 
-                          c("Kranj", "Ajdovščina", "Bled"))
+                          c(selitveno.gibanje$obcina))
              ),
-             uiOutput("naselja")),
+             mainPanel(plotOutput("naselja"))),
     
     tabPanel("Združitev občin po skupinah",
              sidebarPanel(
