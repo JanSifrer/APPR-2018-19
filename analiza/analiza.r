@@ -1,10 +1,16 @@
 # 4. faza: Analiza podatkov
 
-imf <- razlika.obcine %>% mutate(obcina=parse_factor(obcina, levels(zemljevid$OB_UIME)))
-imf.norm <- imf %>% select(-obcina) %>% scale()
-rownames(imf.norm) <- imf$obcina
-
-zemljevid.slovenije <- function(n) {
+zemljevid.slovenije <- function(n, vrsta) {
+  imf <- razlika.obcine %>% mutate(obcina=parse_factor(obcina, levels(zemljevid$OB_UIME)))
+  if(vrsta=="Priseljeni"){
+  imf.norm <- imf %>% select(-obcina) %>% select(-razlika) %>% select(-vsota.y) %>% scale()
+  rownames(imf.norm) <- imf$obcina
+  }
+  if(vrsta=="Izseljeni"){
+    imf.norm <- imf %>% select(-obcina) %>% select(-razlika) %>% select(-vsota.y) %>% scale()
+    rownames(imf.norm) <- imf$obcina
+  } 
+  
   k <- kmeans(imf.norm, n, nstart=1000)
   skupina <- data.frame(obcina=imf$obcina, skupina=factor(k$cluster))
   print(ggplot() + geom_polygon(data=left_join(zemljevid,skupina, 
@@ -27,27 +33,35 @@ meddrzavni.priseljeni <- function() {
     dyOptions(labelsUTC = TRUE, fillGraph=TRUE, fillAlpha=0.1, drawGrid = FALSE, colors="#D8AE5A") %>%
     dyRangeSelector() %>%
     dyCrosshair(direction = "vertical") %>%
+    dyShading(from = "2007-1-1", to = "2009-1-1", color = "#CCEBD6") %>%
     dyHighlight(highlightCircleSize = 5, highlightSeriesBackgroundAlpha = 0.2, hideOnMouseOut = FALSE)  %>%
     dyRoller(rollPeriod = 1) %>%
     dySeries("V1", label = "Število priseljenih")
 }
 
-graf.obcin <- function(ime){
-  zenske <- selitveno.gibanje %>% filter(vrsta=="Priseljeni iz tujine" &
+graf.obcin <- function(ime, naloga){
+  if(naloga=="Priseljeni"){
+    zenske <- selitveno.gibanje %>% filter(vrsta=="Priseljeni iz tujine" &
                                            obcina==ime & spol=="Ženske")
-  moski <- selitveno.gibanje %>% filter(vrsta=="Priseljeni iz tujine" &
+    moski <- selitveno.gibanje %>% filter(vrsta=="Priseljeni iz tujine" &
                                           obcina==ime & spol=="Moški")
+  }
+  if(naloga=="Izseljeni"){
+    zenske <- selitveno.gibanje %>% filter(vrsta=="Odseljeni v tujino" &
+                                             obcina==ime & spol=="Ženske")
+    moski <- selitveno.gibanje %>% filter(vrsta=="Odseljeni v tujino" &
+                                            obcina==ime & spol=="Moški")
+  }
   moski$stevilo <- moski$stevilo + zenske$stevilo
   don<-xts(x = moski$stevilo, order.by=as.yearqtr.default(moski$leto))
   dygraph(don) %>%
     dyOptions(labelsUTC = TRUE, fillGraph=TRUE, fillAlpha=0.1, 
               drawGrid = FALSE, colors="#D8AE5A") %>%
-    dyRangeSelector() %>%
     dyCrosshair(direction = "vertical") %>%
     dyHighlight(highlightCircleSize = 5, highlightSeriesBackgroundAlpha = 0.2, 
                 hideOnMouseOut = FALSE)  %>%
     dyRoller(rollPeriod = 1) %>%
-    dySeries("V1", label = "Število priseljenih")
+    dySeries("V1", label = "Število")
 }
 
 
