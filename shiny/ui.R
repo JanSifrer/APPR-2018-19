@@ -2,20 +2,24 @@ library(shiny)
 
 shinyUI(fluidPage(
   
-  titlePanel("Slovenske občine"),
+   titlePanel(" "),
   
   tabsetPanel(
     tabPanel("Število priseljenih po občinah",
              sidebarPanel(
-              selectInput("obcina", "Izberi občino", 
-                          c(selitveno.gibanje$obcina))
+              selectInput("naloga", "Izberite vrsto:",
+                          c("Priseljeni", "Izseljeni")),
+              selectInput("obcina", "Izberite občino", 
+                          sort(unique(selitveno.gibanje$obcina)))
              ),
-             mainPanel(plotOutput("naselja"))),
+             mainPanel(dygraphOutput("naselja"))),
     
     tabPanel("Združitev občin po skupinah",
              sidebarPanel(
-               sliderInput(inputId="num", label="Izberi število:",
-                           value=5, min=1, max=10)
+               selectInput("vrsta", "Izberite vrsto:",
+                           c("Priseljeni", "Izseljeni")),
+               sliderInput(inputId="num", label="Izberite število:",
+                           value=3, min=1, max=10)
              ),
              mainPanel(plotOutput("zemljevid")))
   )
