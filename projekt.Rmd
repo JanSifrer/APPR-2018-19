@@ -106,8 +106,8 @@ ggplot(data=meddrzavne.selitve.drzavljanstvo %>% group_by(vrsta, drzava)
 ```{r vizualizacija, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
 source("vizualizacija/moja-vizualizacija.r", encoding="UTF-8")
 ```
-Kot sem že omenil, je Slovenija glede preseljevanja na samem vrhu. In postavi se logično vprašanje: Ali je to v redu, ali ne?
-Po mojih podatkih je razvidno da izseljevanje iz Slovenije ni nič kaj koristno za našo državo, in sicer zato, ker se največ ljudi izseli med 20 in 34 letom starosti. To pomeni da se v naši državi izobražuje, nato pa zapusti našo državo, in začne svoje znanje prodajati v drugi državi.
+Kot sem že omenil, je Slovenija glede preseljevanja na samem vrhu. In kar ponuja se logično vprašanje: Ali je to v redu, ali ne?
+Po mojih podatkih je razvidno, da izseljevanje iz Slovenije ni nič kaj koristno za našo državo, in sicer zato, ker se največ ljudi izseli med 20 in 34 letom starosti. To pomeni, da se v naši državi izobražuje, nato pa zapusti našo državo, in začne svoje znanje prodajati v drugi državi.
 ```{r graf 2, echo=FALSE, fig.align='center', fig.cap='graf 2: Izseljeni po starosti'}
 ggplot(data=meddrzavne.selitve.osnovni %>% 
                                               filter(vrsta=="Odseljeni v tujino") %>% 
@@ -152,8 +152,10 @@ ggplot(data=meddrzavne.selitve.osnovni %>%
 
 ***
 ##Selitveni prirast
-Sedaj pa si še poglejmo selitve Slovencev po občinah. Ampak ker iz številk samih ne moremo videti prav dosti, sem se odločil, da bom to najlažje pokazal s selitvenim prirastom, ki je torej razlika med priseljenimi ter izseljenimi prebivalci. Selitveni prirast pa sem še delil s 100, torej so rezultati podani v procentih. 
-Opazimo lahko, da proti severozahodu selitveni narast upada. Najvišji je nekako na Primorskem, najnižji pa na Štajerskem.
+Sedaj pa si še poglejmo selitve Slovencev po občinah.
+
+Če bi želeli razporediti občine v vrsto po številu priseljenih prebivalcev, bi jih v veliki večini lahko razporedili kar po njihovi velikosti. Saj je število priseljencev zelo odvisno od velikosti občine, kar je tudi logično - v večji občini je več delovnih mest. Tako naše glavno mesto Ljubljana prav zagotovo zaseda prvo mesto (leta 2009 je imela kar 5080 priseljencev).
+Podobna statistika velja tudi za izseljene ljudi. V Ljubljani se jih je v enem letu izselilo tudi do 2084. In tukaj naletimo na problem, saj s samimi številkami nič ne moremo povedati. Zato sem se odločil, da bom rajši gledal selitveni prirast, katerega sem dobil kot razliko med priseljenimi in odseljenimi, deljeno s številom prebivalcev v posamezni občini - s tem sem dobil procentne vrednosti. In v zemljevidu spodaj lahko opazimo, da selitveni prirast nekako upada proti severozahodu naše države, razlog za to se verjetno skriva v tem, da je severozahod malenkost manj razvit kot ostala Slovenija.
 
 
 ```{r zemljevid 1, echo=FALSE, fig.align='center', fig.cap='Zemljevid 1: Selitveni prirast'}
@@ -175,12 +177,22 @@ ggplot() + geom_polygon(data=left_join(zemljevid, razlika.obcine,
 ```{r analiza, echo=FALSE, message=FALSE}
 source("analiza/analiza.r", encoding="UTF-8")
 ```
+Sedaj pa si še poglejmo trende priseljevanja v Slovenijo. Iz spodnjega grafa se lahko vidi, da je bilo največ priseljenih ljudi med letoma 2007 in 2009. In logično vprašanje, ki se nam pri tem postavi je: Zakaj ravno v tem obdobju? Odgovor pravzaprav ni tako težak, kajti leta 2007 je Slovenija vstopila v Evropsko unijo ter napovedi za Slovenijo so bile zelo pozitivne (Višja bruto plača; še vedno visoka gospodarska rast…). In vse to jo je naredilo zelo privlačno za tujce. Nato pa je v drugi polovici leta 2008 prišla gospodarska kriza, katera je močno prizadela gospodarstvo ter tudi veliki del slovenskega prebivalstva. In to lahko pojasni tak veliki upad števila priseljenih po letu 2009. 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+Opazimo pa lahko tudi to, da je Slovenija v zadnjih parih letih ponovno postala priljubljena za tujce, saj se število priseljencev povečuje.
+```{r graf 6, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Graf 6: Število priseljencev v obdobju 1991-2017"}
 meddrzavni.priseljeni()
 ```
 
 # Shiny
+Za zaključek pa sem naredil še 2 aplikaciji. V prvi je možno pogledati število priseljenih in izseljenih po občinah. V drugi aplikaciji na drugem zavihku pa je možno razporediti občine v dve kategoriji - po številu priseljenih in izseljenih.
+
+
 ```{r shiny, echo=FALSE}
 shinyAppDir("shiny", options=list(width="100%", height=600))
 ```
+
+***
+# Zaključek
+
+Tema mi je bila zelo zanimiva. Osebno sem izvedel veliko novega o preseljevanju Slovencev. Najbolj pa me je presenetilo prav dejstvo, katerega prikazuje Graf 1, in sicer da je Slovenija tako visoko na lestvici glede selitev.
