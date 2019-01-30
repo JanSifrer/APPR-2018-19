@@ -38,7 +38,7 @@ Za projektno nalogo sem si izbral analizo presejevanja Slovencev. Vse potrebne p
 source("uvoz/uvoz.r", encoding="UTF-8")
 ```
 
-Uvozil sem podatke o meddržavnih selitvah, podatke o tem iz katerih občin so se ljudje odseljevali, oziroma v katere občine priseljevali, osnovne lastnosti teh selivcev in nazadnje še podatke o bruto domačem proizvodu (BDP) Evropskih držav. Podatke sem uvažal v obliki CSV in enega v HTML, ter so razporejeni v 7 razpredelnicah v obliki *tidy data*.
+Uvozil sem podatke o meddržavnih selitvah, podatke o tem iz katerih občin so se ljudje odseljevali, oziroma v katere občine priseljevali, osnovne lastnosti teh selivcev in nazadnje še podatke o bruto domačem proizvodu (BDP) Evropskih držav. Podatke sem uvažal v obliki CSV, ter so razporejeni v 7 razpredelnicah v obliki *tidy data*.
 
 1. `meddrzavne.selitve.osnovni` - osnovni podatki o meddržavnih selitvah
   - `vrsta` - spremenljivka: pove nam vrsto selitve, torej ali se je oseba izselila ali priselila v Slovenijo,
