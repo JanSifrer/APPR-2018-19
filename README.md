@@ -9,7 +9,7 @@ Repozitorij z gradivi pri predmetu APPR v študijskem letu 2018/19
 
 ## Analiza preseljevanja Slovencev
 
-Za projektno nalogo sem si izbral analizo preseljevanja Slovencev. Podatke bom dobil na statističnemu uradu Republike Slovenije (SI-STAT), pod tematiko demografsko in socialno področje – selitve. Moj cilj je, da prikažem kolikšen delež Slovencev se seli, pri kakšni starosti se selijo, zakaj se selijo in v katere države se največ Slovencev preseli. Zanimalo pa me bo tudi obratno, torej kaj je razlog da se ljudje priseljujejo v Slovenijo, ter iz kje prhajajo.
+Za projektno nalogo sem si izbral analizo preseljevanja Slovencev. Podatke bom dobil na statističnemu uradu Republike Slovenije (SI-STAT), pod tematiko demografsko in socialno področje – selitve. Moj cilj je, da prikažem koliko Slovencev se seli, pri kakšni starosti se selijo in v katere države se največ Slovencev preseli. Zanimalo pa me bo tudi obratno, torej kaj je razlog da se ljudje priseljujejo v Slovenijo, ter iz kje prhajajo.
 
 ## Tabele
 * tabela 1: vrsta selitve, starostne skupine, spol, leto, število
@@ -41,7 +41,7 @@ Glavni program in poročilo se nahajata v datoteki `projekt.Rmd`.
 Ko ga prevedemo, se izvedejo programi, ki ustrezajo drugi, tretji in četrti fazi projekta:
 
 * obdelava, uvoz in čiščenje podatkov: `uvoz/uvoz.r`
-* analiza in vizualizacija podatkov: `vizualizacija/vizualizacija.r`
+* analiza in vizualizacija podatkov: `vizualizacija/moja-vizualizacija.r`
 * napredna analiza podatkov: `analiza/analiza.r`
 
 Vnaprej pripravljene funkcije se nahajajo v datotekah v mapi `lib/`.
@@ -68,6 +68,8 @@ Za zagon tega vzorca je potrebno namestiti sledeče pakete za R:
 * `mosaic` - za pretvorbo zemljevidov v obliko za risanje z `ggplot2`
 * `maptools` - za delo z zemljevidi
 * `extrafont` - za pravilen prikaz šumnikov (neobvezno)
+* `dygraphs` - za izrisovanje grafov
+* `xts` - za delo s podatki
 
 ## Binder
 

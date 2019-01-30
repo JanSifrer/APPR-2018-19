@@ -89,10 +89,10 @@ Uvozil sem podatke o meddržavnih selitvah, podatke o tem iz katerih občin so s
 **Opomba**: da bi razpredelnica `bdp` res bila v obliki *tidy data* bi moral odsraniti neznane vrednosti v stolpcu `BDP` (določene države za kakšno leto nimajo izmerjenega BDP).
 
 
-Spodnji graf prikazuje število izseljenih in priseljenih ljudi po državah. Hkrati pa tudi prikazuje da je Slovenija glede odseljevanja na prvem mestu, glede izseljevanja pa na tretjem mestu.
+Spodnji graf prikazuje število izseljenih in priseljenih ljudi po državah. In opazimo lahko, da se v Slovenijo priseli največ ljudi iz držav bivše Jugoslavije.
 
-```{r graf 1, echo=FALSE, fig.align='center', fig.cap='Graf 1: Države selitev'}
-ggplot(data=meddrzavne.selitve.drzavljanstvo %>% group_by(vrsta, drzava)
+```{r graf 1, echo=FALSE, fig.align='center', fig.cap='Graf 1: Selitve po državah med letoma 1996 in 2017'}
+ggplot(data=meddrzavne.selitve.drzavljanstvo %>% filter(drzava!="SEVERNA IN SREDNJA AMERIKA" & drzava != "Druge države Severne in Srednje Amerike" & drzava != "AVSTRALIJA IN OCEANIJA" & drzava !="JUŽNA AMERIKA" & drzava != "AFRIKA" & drzava != "AZIJA") %>% group_by(vrsta, drzava)
                            %>% summarise(Stevilo=sum(stevilo)), 
                            mapping = aes(x=reorder(drzava, Stevilo), y=Stevilo, fill=vrsta)) + 
   geom_bar(stat = 'identity', position = 'dodge') + xlab("Država") + ylab("Število") +
@@ -106,7 +106,7 @@ ggplot(data=meddrzavne.selitve.drzavljanstvo %>% group_by(vrsta, drzava)
 ```{r vizualizacija, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
 source("vizualizacija/moja-vizualizacija.r", encoding="UTF-8")
 ```
-Kot sem že omenil, je Slovenija glede preseljevanja na samem vrhu. In kar ponuja se logično vprašanje: Ali je to v redu, ali ne?
+V zgornjem grafu lahko opazimo, da se je v Slovenijo med letoma 1996 in 2017, priselilo in izselilo zelo veliko število ljudi. In kar ponuja se logično vprašanje: Ali je to v redu, ali ne?
 Po mojih podatkih je razvidno, da izseljevanje iz Slovenije ni nič kaj koristno za našo državo, in sicer zato, ker se največ ljudi izseli med 20 in 34 letom starosti. To pomeni, da se v naši državi izobražuje, nato pa zapusti našo državo, in začne svoje znanje prodajati v drugi državi.
 ```{r graf 2, echo=FALSE, fig.align='center', fig.cap='graf 2: Izseljeni po starosti'}
 ggplot(data=meddrzavne.selitve.osnovni %>% 
@@ -119,7 +119,7 @@ ggplot(data=meddrzavne.selitve.osnovni %>%
 ```
 
 ```{r graf 3, echo=FALSE, fig.align='center',  fig.cap='Graf 3: Izseljeni po izobrazbi'}
-ggplot(data=odseljeni.prebivalci %>% group_by(drzava, izobrazba) %>% summarise(Stevilo=sum(stevilo)),
+ggplot(data=odseljeni.prebivalci %>% filter(drzava!="SEVERNA IN SREDNJA AMERIKA" & drzava != "Druge države Severne in Srednje Amerike" & drzava != "AVSTRALIJA IN OCEANIJA" & drzava != "JUŽNA AMERIKA" & drzava != "ostale evropske države") %>% group_by(drzava, izobrazba) %>% summarise(Stevilo=sum(stevilo)),
                                      aes(x = drzava, y = Stevilo, fill = izobrazba)) +
   geom_bar(stat = 'identity', position = 'dodge') +
   xlab("Država") + ylab("Število") +
@@ -131,7 +131,7 @@ Vidimo da se je iz Slovenije res izselilo veliko ljudi z višješolsko oz. visok
 Ravno nasprotno pa velja za priseljence. V spodnjih dveh grafih lahko vidimo, da se je največ ljudi priselilo s srednješolsko izobrazbo, sledijo pa jim osebe z osnovnošolsko ali manjšo izobrazbo. Podobnost pa lahko vidimo pri starosti preseljevanja, za kar pa tudi obstaja logična razlaga - v teh letih ljudje ravno iščejo zaposlitev, in če v tuji državi najdeš boljšo plačo za podobno delo, se lažje sedaj preseliš, kot pa potem ko boš imel enkrat družino. Če se za hip vrnemo na Graf 1, lahko sklepamo, da nekakšno tako razmišljanje  velja predvsem v Bosni in Hercegovini. Kajti ravno ta država je prva v številu izseljenih ljudi, vsi pa tudi vemo da je življenjski standard  v BIH nekoliko nižji kot drugje v Evropi.
 
 ```{r graf 4, echo=FALSE, fig.align='center', fig.cap='Graf 4: Priseljeni po letih'}
-ggplot(data=priseljeni.prebivalci %>% group_by(drzava, izobrazba) %>% summarise(Stevilo=sum(stevilo)),
+ggplot(data=priseljeni.prebivalci %>% filter(drzava!="SEVERNA IN SREDNJA AMERIKA" & drzava != "Druge države Severne in Srednje Amerike" & drzava != "AVSTRALIJA IN OCEANIJA" & drzava != "JUŽNA AMERIKA") %>% group_by(drzava, izobrazba) %>% summarise(Stevilo=sum(stevilo)),
        aes(x = drzava, y = Stevilo, fill = izobrazba)) +
   geom_bar(stat = 'identity', position = 'dodge') +
   xlab("Država") + ylab("Število") +
@@ -195,4 +195,8 @@ shinyAppDir("shiny", options=list(width="100%", height=600))
 ***
 # Zaključek
 
-Tema mi je bila zelo zanimiva. Osebno sem izvedel veliko novega o preseljevanju Slovencev. Najbolj pa me je presenetilo prav dejstvo, katerega prikazuje Graf 1, in sicer da je Slovenija tako visoko na lestvici glede selitev.
+Tema mi je bila zelo zanimiva. Osebno sem izvedel veliko novega o preseljevanju Slovencev.
+Najbolj pa so me presenetili prav podatki o številu priseljenih in izseljenih ljudeh, kajti nikoli si nisemznal predstavljati, koliko ljudi se priseli oz. izseli iz Slovenije, sedaj pa vidim, da so te številke kar visoke.
+
+
+
