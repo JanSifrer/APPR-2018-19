@@ -1,18 +1,11 @@
 # 4. faza: Analiza podatkov
 
-zemljevid.slovenije <- function(n, vrsta) {
-  imf <- razlika.obcine %>% mutate(obcina=parse_factor(obcina, levels(zemljevid$OB_UIME)))
-  if(vrsta=="Priseljeni"){
-  imf.norm <- imf %>% select(-obcina) %>% select(-razlika) %>% select(-vsota.y) %>% scale()
-  rownames(imf.norm) <- imf$obcina
-  }
-  if(vrsta=="Izseljeni"){
-    imf.norm <- imf %>% select(-obcina) %>% select(-razlika) %>% select(-vsota.y) %>% scale()
-    rownames(imf.norm) <- imf$obcina
-  } 
-  
-  k <- kmeans(imf.norm, n, nstart=1000)
-  skupina <- data.frame(obcina=imf$obcina, skupina=factor(k$cluster))
+zemljevid.slovenije <- function(n) {
+  podatki.zemljevid <- razlika.obcine %>% mutate(obcina=parse_factor(obcina, levels(zemljevid$OB_UIME)))
+  podatki.zemljevid.norm <- podatki.zemljevid %>% select(priseljeni, odseljeni)%>% scale()
+  rownames(podatki.zemljevid.norm) <- podatki.zemljevid$obcina
+  k <- kmeans(podatki.zemljevid.norm, n, nstart=1000)
+  skupina <- data.frame(obcina=podatki.zemljevid$obcina, skupina=factor(k$cluster))
   print(ggplot() + geom_polygon(data=left_join(zemljevid,skupina, 
                                             by=c("OB_UIME"="obcina")), 
                                 aes(x=long, y=lat, group=group, 

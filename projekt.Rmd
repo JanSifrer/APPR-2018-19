@@ -158,7 +158,7 @@ Sedaj pa si še poglejmo selitve Slovencev po občinah.
 Podobna statistika velja tudi za izseljene ljudi. V Ljubljani se jih je v enem letu izselilo tudi do 2084. In tukaj naletimo na problem, saj s samimi številkami nič ne moremo povedati. Zato sem se odločil, da bom rajši gledal selitveni prirast, katerega sem dobil kot razliko med priseljenimi in odseljenimi, deljeno s številom prebivalcev v posamezni občini - s tem sem dobil procentne vrednosti. In v zemljevidu spodaj lahko opazimo, da selitveni prirast nekako upada proti severozahodu naše države, razlog za to se verjetno skriva v tem, da se ljudje iz tujih držav rajši naselijo v bližini morja, kot pa v Panonski nižini.
 
 
-```{r zemljevid1, echo=FALSE, fig.align='center', fig.cap='Zemljevid 1: Selitveni prirast'}
+```{r zemljevid1, echo=FALSE, fig.align='center', error=FALSE, warning=FALSE, fig.cap='Zemljevid 1: Selitveni prirast'}
 ggplot() + geom_polygon(data=left_join(zemljevid, razlika.obcine,
                                        by=c("OB_UIME"="obcina")),
                         aes(x=long, y=lat, group=group,
@@ -185,7 +185,7 @@ meddrzavni.priseljeni()
 ```
 
 # Shiny
-Za zaključek pa sem naredil še 2 aplikaciji. V prvi je možno pogledati število priseljenih in izseljenih po občinah. V drugi aplikaciji na drugem zavihku pa je možno razporediti občine v dve kategoriji - po številu priseljenih in izseljenih.
+Za zaključek pa sem naredil še 2 aplikaciji. V prvi je možno pogledati število priseljenih in izseljenih po občinah. V drugi aplikaciji, na drugem zavihku pa je možno razporediti občine v poljubno število skupin (največ jih je 10).
 
 
 ```{r shiny, echo=FALSE}

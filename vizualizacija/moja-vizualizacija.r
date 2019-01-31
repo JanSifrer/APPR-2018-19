@@ -64,17 +64,20 @@ graf.odseljeni.prebivalci.izo <- ggplot(data=odseljeni.prebivalci %>% group_by(d
 #in v katere občine se je največ Slovencev priselilo.
 
 odseljeni.obcine <- selitveno.gibanje %>% filter(vrsta == "Odseljeni v tujino") %>% 
-                              group_by(obcina) %>% summarise(vsota=sum(stevilo))
-
-odseljeni.obcine[["obcina"]] <- factor(odseljeni.obcine[["obcina"]]) #rabim za zemljevid
+                              group_by(obcina) %>% summarise(vsota=sum(stevilo)) %>%
+  mutate(obcina=factor(odseljeni.obcine$obcina))
 
 priseljeni.obcine <- selitveno.gibanje %>% filter(vrsta == "Priseljeni iz tujine") %>% 
-                              group_by(obcina) %>% summarise(vsota=sum(stevilo))
-razlika.obcine <- merge(odseljeni.obcine, priseljeni.obcine, by="obcina")
-razlika.obcine["razlika"] <- (priseljeni.obcine$vsota - odseljeni.obcine$vsota)/prebivalstvo$stevilo
-razlika.obcine$vsota.x <- (priseljeni.obcine$vsota/prebivalstvo$stevilo)
-razlika.obcine$vsota.y <- (odseljeni.obcine$vsota/prebivalstvo$stevilo)
+                              group_by(obcina) %>% summarise(vsota=sum(stevilo)) %>%
+  mutate(obcina=factor(priseljeni.obcine$obcina))
 
+
+razlika.obcine <- prebivalstvo %>%
+  inner_join(priseljeni.obcine) %>% rename(priseljeni=vsota) %>%
+  inner_join(odseljeni.obcine) %>% rename(odseljeni=vsota) %>%
+  mutate(priseljeni=priseljeni/stevilo, odseljeni=odseljeni/stevilo) %>%
+  mutate(razlika=priseljeni-odseljeni)%>%
+  mutate(obcina=factor(razlika.obcine$obcina))
 
 #Uvozim zemljevid Slovenije
 #source("lib/uvozi.zemljevid.r")

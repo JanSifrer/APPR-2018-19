@@ -6,6 +6,6 @@ function(input, output, session) {
     graf.obcin(input$obcina, input$naloga)
   })
   output$zemljevid <- renderPlot({
-  zemljevid.slovenije(input$num,input$vrsta)
+  zemljevid.slovenije(input$num)
   })
 }

@@ -16,8 +16,6 @@ shinyUI(fluidPage(
     
     tabPanel("Združitev občin po skupinah",
              sidebarPanel(
-               selectInput("vrsta", "Izberite vrsto:",
-                           c("Priseljeni", "Izseljeni")),
                sliderInput(inputId="num", label="Izberite število:",
                            value=3, min=1, max=10)
              ),
