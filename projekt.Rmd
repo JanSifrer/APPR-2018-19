@@ -91,7 +91,7 @@ Uvozil sem podatke o meddržavnih selitvah, podatke o tem iz katerih občin so s
 
 Spodnji graf prikazuje število izseljenih in priseljenih ljudi po državah. In opazimo lahko, da se v Slovenijo priseli največ ljudi iz držav bivše Jugoslavije.
 
-```{r graf 1, echo=FALSE, fig.align='center', fig.cap='Graf 1: Selitve po državah med letoma 1996 in 2017'}
+```{r graf1, echo=FALSE, fig.align='center', fig.cap='Graf 1: Selitve po državah med letoma 1996 in 2017'}
 ggplot(data=meddrzavne.selitve.drzavljanstvo %>% filter(drzava!="SEVERNA IN SREDNJA AMERIKA" & drzava != "Druge države Severne in Srednje Amerike" & drzava != "AVSTRALIJA IN OCEANIJA" & drzava !="JUŽNA AMERIKA" & drzava != "AFRIKA" & drzava != "AZIJA") %>% group_by(vrsta, drzava)
                            %>% summarise(Stevilo=sum(stevilo)), 
                            mapping = aes(x=reorder(drzava, Stevilo), y=Stevilo, fill=vrsta)) + 
@@ -108,7 +108,7 @@ source("vizualizacija/moja-vizualizacija.r", encoding="UTF-8")
 ```
 V zgornjem grafu lahko opazimo, da se je v Slovenijo med letoma 1996 in 2017, priselilo in izselilo zelo veliko število ljudi. In kar ponuja se logično vprašanje: Ali je to v redu, ali ne?
 Po mojih podatkih je razvidno, da izseljevanje iz Slovenije ni nič kaj koristno za našo državo, in sicer zato, ker se največ ljudi izseli med 20 in 34 letom starosti. To pomeni, da se v naši državi izobražuje, nato pa zapusti našo državo, in začne svoje znanje prodajati v drugi državi.
-```{r graf 2, echo=FALSE, fig.align='center', fig.cap='graf 2: Izseljeni po starosti'}
+```{r graf2, echo=FALSE, fig.align='center', fig.cap='graf 2: Izseljeni po starosti'}
 ggplot(data=meddrzavne.selitve.osnovni %>% 
                                               filter(vrsta=="Odseljeni v tujino") %>% 
                                        group_by(spol, starost, spol) %>% 
@@ -118,7 +118,7 @@ ggplot(data=meddrzavne.selitve.osnovni %>%
   xlab("Starost") + ylab("Število")+ ggtitle("Graf izseljenih Slovencev po letih") + coord_flip()
 ```
 
-```{r graf 3, echo=FALSE, fig.align='center',  fig.cap='Graf 3: Izseljeni po izobrazbi'}
+```{r graf3, echo=FALSE, fig.align='center',  fig.cap='Graf 3: Izseljeni po izobrazbi'}
 ggplot(data=odseljeni.prebivalci %>% filter(drzava!="SEVERNA IN SREDNJA AMERIKA" & drzava != "Druge države Severne in Srednje Amerike" & drzava != "AVSTRALIJA IN OCEANIJA" & drzava != "JUŽNA AMERIKA" & drzava != "ostale evropske države") %>% group_by(drzava, izobrazba) %>% summarise(Stevilo=sum(stevilo)),
                                      aes(x = drzava, y = Stevilo, fill = izobrazba)) +
   geom_bar(stat = 'identity', position = 'dodge') +
@@ -130,7 +130,7 @@ ggplot(data=odseljeni.prebivalci %>% filter(drzava!="SEVERNA IN SREDNJA AMERIKA"
 Vidimo da se je iz Slovenije res izselilo veliko ljudi z višješolsko oz. visokošolsko izobrazbo, malo več je bilo tistih s srednješolsko izobrazbo, najmanj pa je ljudi z osnovnošolskih izobrazbo.
 Ravno nasprotno pa velja za priseljence. V spodnjih dveh grafih lahko vidimo, da se je največ ljudi priselilo s srednješolsko izobrazbo, sledijo pa jim osebe z osnovnošolsko ali manjšo izobrazbo. Podobnost pa lahko vidimo pri starosti preseljevanja, za kar pa tudi obstaja logična razlaga - v teh letih ljudje ravno iščejo zaposlitev, in če v tuji državi najdeš boljšo plačo za podobno delo, se lažje sedaj preseliš, kot pa potem ko boš imel enkrat družino. Če se za hip vrnemo na Graf 1, lahko sklepamo, da nekakšno tako razmišljanje  velja predvsem v Bosni in Hercegovini. Kajti ravno ta država je prva v številu izseljenih ljudi, vsi pa tudi vemo da je življenjski standard  v BIH nekoliko nižji kot drugje v Evropi.
 
-```{r graf 4, echo=FALSE, fig.align='center', fig.cap='Graf 4: Priseljeni po letih'}
+```{r graf4, echo=FALSE, fig.align='center', fig.cap='Graf 4: Priseljeni po letih'}
 ggplot(data=priseljeni.prebivalci %>% filter(drzava!="SEVERNA IN SREDNJA AMERIKA" & drzava != "Druge države Severne in Srednje Amerike" & drzava != "AVSTRALIJA IN OCEANIJA" & drzava != "JUŽNA AMERIKA") %>% group_by(drzava, izobrazba) %>% summarise(Stevilo=sum(stevilo)),
        aes(x = drzava, y = Stevilo, fill = izobrazba)) +
   geom_bar(stat = 'identity', position = 'dodge') +
@@ -139,7 +139,7 @@ ggplot(data=priseljeni.prebivalci %>% filter(drzava!="SEVERNA IN SREDNJA AMERIKA
   coord_flip()
 ```
 
-```{r graf 5, echo=FALSE, fig.align='center', fig.cap='Graf 5: Priseljeni po izobrazbi'}
+```{r graf5, echo=FALSE, fig.align='center', fig.cap='Graf 5: Priseljeni po izobrazbi'}
 ggplot(data=meddrzavne.selitve.osnovni %>% 
                                                filter(vrsta=="Priseljeni iz tujine") %>% 
                                                  group_by(spol, starost) %>% 
@@ -158,7 +158,7 @@ Sedaj pa si še poglejmo selitve Slovencev po občinah.
 Podobna statistika velja tudi za izseljene ljudi. V Ljubljani se jih je v enem letu izselilo tudi do 2084. In tukaj naletimo na problem, saj s samimi številkami nič ne moremo povedati. Zato sem se odločil, da bom rajši gledal selitveni prirast, katerega sem dobil kot razliko med priseljenimi in odseljenimi, deljeno s številom prebivalcev v posamezni občini - s tem sem dobil procentne vrednosti. In v zemljevidu spodaj lahko opazimo, da selitveni prirast nekako upada proti severozahodu naše države, razlog za to se verjetno skriva v tem, da se ljudje iz tujih držav rajši naselijo v bližini morja, kot pa v Panonski nižini.
 
 
-```{r zemljevid 1, echo=FALSE, fig.align='center', fig.cap='Zemljevid 1: Selitveni prirast'}
+```{r zemljevid1, echo=FALSE, fig.align='center', fig.cap='Zemljevid 1: Selitveni prirast'}
 ggplot() + geom_polygon(data=left_join(zemljevid, razlika.obcine,
                                        by=c("OB_UIME"="obcina")),
                         aes(x=long, y=lat, group=group,
@@ -180,7 +180,7 @@ source("analiza/analiza.r", encoding="UTF-8")
 Sedaj pa si še poglejmo trende priseljevanja v Slovenijo. Iz spodnjega grafa se lahko vidi, da je bilo največ priseljenih ljudi med letoma 2007 in 2009. In logično vprašanje, ki se nam pri tem postavi je: Zakaj ravno v tem obdobju? Odgovor pravzaprav ni tako težak, kajti leta 2007 je Slovenija vstopila v Evropsko unijo ter napovedi za Slovenijo so bile zelo pozitivne (Višja bruto plača; še vedno visoka gospodarska rast…). In vse to jo je naredilo zelo privlačno za tujce. Nato pa je v drugi polovici leta 2008 prišla gospodarska kriza, katera je močno prizadela gospodarstvo ter tudi veliki del slovenskega prebivalstva. In to lahko pojasni tak veliki upad števila priseljenih po letu 2009. 
 
 Opazimo pa lahko tudi to, da je Slovenija v zadnjih parih letih ponovno postala priljubljena za tujce, saj se število priseljencev povečuje.
-```{r graf 6, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Graf 6: Število priseljencev v obdobju 1991-2017"}
+```{r graf6, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Graf 6: Število priseljencev v obdobju 1991-2017"}
 meddrzavni.priseljeni()
 ```
 
